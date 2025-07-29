@@ -1,0 +1,418 @@
+{
+   "checksum": "dfe8f3c6b9be60da7efafafe0c416e6a",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13305654887928133",
+            "date_last_used": "0",
+            "guid": "690a4f31-9351-4dfa-9367-220de056db87",
+            "id": "13",
+            "name": "Amazon.in - Online Shopping",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "http://www.amazon.com/gp/bit/amazonbookmark.html?tag=hp2-brobookmark-us-20&partner=HP",
+            "visit_count": 0
+         }, {
+            "children": [ {
+               "date_added": "13313157494346436",
+               "date_last_used": "13396904153324554",
+               "guid": "888b0594-8347-4b64-ab9b-129ede2fb01c",
+               "id": "15",
+               "name": "Inbox - arpitgupta.kv2@gmail.com - Gmail",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mail.google.com/mail/u/0/#inbox",
+               "visit_count": 71
+            }, {
+               "date_added": "13313157494346629",
+               "date_last_used": "13396875523092209",
+               "guid": "92d46620-4e3a-4586-8f55-1a6a745b9eaf",
+               "id": "16",
+               "name": "Inbox - arpitgupta.2022@vitbhopal.ac.in - VIT Bhopal University Mail",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mail.google.com/mail/u/1/#inbox",
+               "visit_count": 37
+            }, {
+               "date_added": "13313157494346721",
+               "date_last_used": "13388138420498783",
+               "guid": "a1887d71-f66e-4264-9b14-93c580a56f40",
+               "id": "17",
+               "name": "Microsoft Teams",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://teams.microsoft.com/_#/school/teams-grid/General?ctx=teamsGrid",
+               "visit_count": 2
+            }, {
+               "date_added": "13313157494346819",
+               "date_last_used": "0",
+               "guid": "5fd8566f-6652-45b9-a5b9-c7ae1cfc0afa",
+               "id": "18",
+               "name": "https://vtop.vitbhopal.ac.in/vtop/initialProcess",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://vtop.vitbhopal.ac.in/vtop/initialProcess",
+               "visit_count": 0
+            }, {
+               "date_added": "13344636478758758",
+               "date_last_used": "13391805135992457",
+               "guid": "c6271b31-041b-42bc-aa0b-67cb8ca95ba2",
+               "id": "19",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "The Data Scientist's Toolbox - Moad HANI - Google Drive",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://drive.google.com/drive/u/0/folders/1CgN7DE3pNRNh_4BA_zrrMLqWz6KquwuD",
+               "visit_count": 4
+            }, {
+               "date_added": "13353602353057885",
+               "date_last_used": "13394662503722336",
+               "guid": "59cbb501-db11-4223-911a-5d91ca95bb02",
+               "id": "20",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "Sigma - Alpla0.5 + Delta - Google Drive",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://drive.google.com/drive/u/0/folders/1LFkoCAfm5d5roxUN77uYmv-0U_iVA5zX",
+               "visit_count": 49
+            }, {
+               "date_added": "13353968702317316",
+               "date_last_used": "13389298154896731",
+               "guid": "7302a49e-bc96-456f-9ae0-1a7141de9a97",
+               "id": "21",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "Pyhton with ML",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mega.nz/folder/QnVVzCDK#wmrRtr2Xo-hKuOZluSP8aA",
+               "visit_count": 3
+            }, {
+               "date_added": "13355943016866624",
+               "date_last_used": "13391805123184620",
+               "guid": "e237a4eb-47ad-4dd0-811f-10163f4613c4",
+               "id": "22",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "MEGA C++",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mega.nz/folder/QkwEGAII#0CDNw-mvSDJYcB603RYhBg",
+               "visit_count": 4
+            }, {
+               "date_added": "13353602341380604",
+               "date_last_used": "13396875592591820",
+               "guid": "976922ce-9073-4111-bebb-45a96b12e7ff",
+               "id": "23",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "Sigma - Alpla0.5 + Delta - Google Drive",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://drive.google.com/drive/folders/1Q3JGoRRNoY081lZZdbn1CTYdSPwKrZHz",
+               "visit_count": 84
+            }, {
+               "date_added": "13355943183439342",
+               "date_last_used": "13391018365590112",
+               "guid": "d92565db-7531-4bec-a1d5-3159a0d31d13",
+               "id": "24",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "MEGA-udemy",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mega.nz/folder/t69gha4L#IE4bFM_UtjvsANNF0FojLQ",
+               "visit_count": 3
+            }, {
+               "date_added": "13357654466194750",
+               "date_last_used": "13387045990138645",
+               "guid": "11be8126-a5bd-4892-90ba-d4e380e169de",
+               "id": "25",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "Practice | GeeksforGeeks | A computer science portal for geeks",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://www.geeksforgeeks.org/explore?page=1&sortBy=submissions&itm_source=geeksforgeeks&itm_medium=main_header&itm_campaign=practice_header",
+               "visit_count": 64
+            }, {
+               "date_added": "13370715398114904",
+               "date_last_used": "0",
+               "guid": "981e3890-943c-4269-a388-8c2223968652",
+               "id": "26",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "ui/ux figma",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mega.nz/folder/xnlWDCqY#KLsehnocgmSCKguD94pw9g",
+               "visit_count": 1
+            }, {
+               "date_added": "13376267671913247",
+               "date_last_used": "0",
+               "guid": "f4eacc4c-cbd3-4425-bf42-671ffac96578",
+               "id": "27",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "22BCE10302-7744 | Microsoft Learn",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://learn.microsoft.com/en-us/users/22bce10302-7744/",
+               "visit_count": 1
+            }, {
+               "date_added": "13383677646598597",
+               "date_last_used": "13396472891965655",
+               "guid": "c25d2ba7-cb15-4e88-8434-0647f245c39c",
+               "id": "28",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "upstop",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://unstop.com/user/rounds/all/upcoming?search=&page=1",
+               "visit_count": 38
+            }, {
+               "date_added": "13383677989238207",
+               "date_last_used": "13391805102200130",
+               "guid": "f1750ee8-eae4-401c-8a01-b732889c3d58",
+               "id": "29",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "kali linux",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mega.nz/folder/FP0VwTQR#mHeRR1P9fDTLf2KhObJreQ/folder/4KsGWIDK",
+               "visit_count": 2
+            }, {
+               "date_added": "13383904364093005",
+               "date_last_used": "0",
+               "guid": "02c2e51d-b37a-4d0a-8839-115b316ec7a8",
+               "id": "30",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "ARPIT GUPTA | Codolio",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://codolio.com/profile/arpit_2022",
+               "visit_count": 1
+            }, {
+               "date_added": "13387781733143949",
+               "date_last_used": "13392045089406417",
+               "guid": "56055c11-45c3-433c-9eb1-fd7fd41411ff",
+               "id": "31",
+               "name": "API SERVICE",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://console.cloud.google.com/google/maps-apis/api-list?project=serene-flare-455304-i1&invt=AbtYkQ",
+               "visit_count": 7
+            }, {
+               "date_added": "13392235713584426",
+               "date_last_used": "13395093247822011",
+               "guid": "ce02c2b2-1563-44e9-98b1-5ad47cd6b36a",
+               "id": "32",
+               "name": "passport",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://services1.passportindia.gov.in/forms/Home/UserApplicationsDetails",
+               "visit_count": 3
+            }, {
+               "date_added": "13393951181284756",
+               "date_last_used": "13396297021872780",
+               "guid": "fa0baae0-ec1c-49cd-8ed0-9d337347ca29",
+               "id": "33",
+               "name": "Solve SQL | HackerRank",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://www.hackerrank.com/domains/sql",
+               "visit_count": 11
+            }, {
+               "date_added": "13394034464733984",
+               "date_last_used": "13396472815486015",
+               "guid": "d743d459-82e8-4985-afe5-231d1b13553e",
+               "id": "34",
+               "name": "Profile | POD",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://vitbhopal.pod.ai/d/hUVx8H/profile/",
+               "visit_count": 4
+            }, {
+               "date_added": "13395954386228129",
+               "date_last_used": "13396034613145330",
+               "guid": "be6c0b28-e3cb-456e-b399-4b9d732b4f46",
+               "id": "35",
+               "name": "Office 2021 Direct Download Links",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://www.heidoc.net/joomla/technology-science/microsoft/16-office-2021-direct-download-links",
+               "visit_count": 3
+            } ],
+            "date_added": "13313157494345437",
+            "date_last_used": "0",
+            "date_modified": "13395954386228129",
+            "guid": "5f9b6dea-f5a5-4e91-a8c4-87dd3962ea9c",
+            "id": "14",
+            "name": "VIT THINGS",
+            "source": "unknown",
+            "type": "folder"
+         }, {
+            "date_added": "13341774527157031",
+            "date_last_used": "13396817922491557",
+            "guid": "6cfd39c2-d4c9-4ead-a5be-8433253534f2",
+            "id": "36",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "ChatGPT",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://chat.openai.com/?model=text-davinci-002-render-sha",
+            "visit_count": 753
+         } ],
+         "date_added": "13396938391986445",
+         "date_last_used": "0",
+         "date_modified": "13341774527157031",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [ {
+            "children": [ {
+               "date_added": "13337281703952047",
+               "date_last_used": "13362432953761126",
+               "guid": "4f592727-276f-48d7-9cb9-d7b590a45e7e",
+               "id": "7",
+               "name": "How to Download HEVC Video Extension for Free",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://www.free-codecs.com/guides/how_to_download_hevc_video_extension_for_free.htm",
+               "visit_count": 0
+            }, {
+               "date_added": "13337359952594000",
+               "date_last_used": "0",
+               "guid": "885bf6cf-df66-4cdf-91a5-e64ee7a348c4",
+               "id": "8",
+               "name": "ZSeacurity all Courses by @Haxorcity",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://mega.nz/folder/yjgUUIhK#sInggFGduBTPCpfLzyJ_XQ",
+               "visit_count": 0
+            }, {
+               "date_added": "13339009965792311",
+               "date_last_used": "13389298084392855",
+               "guid": "83fe03b4-8a96-4969-8da0-28ef58ead5c2",
+               "id": "9",
+               "name": "Abdul Bari - /",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "https://cpp.ant687992.workers.dev/0:/",
+               "visit_count": 1
+            }, {
+               "date_added": "13305654887928133",
+               "date_last_used": "0",
+               "guid": "4ccbb63f-b8fa-4a50-a3a5-fd70e9e9c57d",
+               "id": "10",
+               "name": "Amazon.in - Online Shopping",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "http://www.amazon.com/gp/bit/amazonbookmark.html?tag=hp2-brobookmark-us-20&partner=HP",
+               "visit_count": 0
+            } ],
+            "date_added": "13305655322235622",
+            "date_last_used": "0",
+            "date_modified": "13339009965792311",
+            "guid": "a830a345-31f3-44e8-8881-0433fc020ac6",
+            "id": "6",
+            "name": "HP",
+            "source": "unknown",
+            "type": "folder"
+         }, {
+            "date_added": "13327280153265568",
+            "date_last_used": "13391805019412638",
+            "guid": "2bde5d50-a5f5-4996-8187-9b39ee31fd28",
+            "id": "11",
+            "name": "Ethical Hacking Python",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://drive.google.com/uc?id=1JjZur3Zvxi8PmK8rWyAgIGwuD9lEMMqh&export=download",
+            "visit_count": 1
+         }, {
+            "date_added": "13331912703255569",
+            "date_last_used": "13391018240724618",
+            "guid": "b5bc0b1a-2f40-4462-ae38-b3f0454f51b5",
+            "id": "12",
+            "name": "user6791FW - LeetCode Profile",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://leetcode.com/user6791FW/",
+            "visit_count": 18
+         } ],
+         "date_added": "13396938391986445",
+         "date_last_used": "0",
+         "date_modified": "13331912703255569",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13396938391986445",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCIFBAAWYAQAAEgAqGEViR1p3RERuKzhXTkd5VThZU25WRWc9PUgDoAYHEq0BCCQSqAEKHGNUdVFlNDBKVEw0T2NITDN3Wm5TS3JiS2NyST0SJDZjZmQzOWMyLWQ0YzktNGVhZC1hNWJlLTg0MzMyNTM1MzRmMhgAIAAoADDqyfH+/zI4jueT+LIxQI7nk/iyMUocRGpPb09WZk5EMDUxYm8rQ1grdk5DSm81SjlzPVofIh3eaXZqV0lMb29zZTgrb3Y1ZHluaTcwY3VReFRjPWU4FCTFwj4CYAUSsAEIIRKrAQocZTM2ZFl1NG45Mm4xV2ZSM0M3S2x5d0hCbHFBPRIkZmEwYmFhZTAtZWMxYy00OWNkLThlZDAtOWQzMzczNDdjYTI5GAAgACgAMOG0wIb+Mji/5vWn9TJAv+b1p/UyShxPbERZQ1BGTDVkV2YxVjFvV3pHMTEwQjEreDA9WiIiIP///95NU3NvTkl3U2xLU3lBamlySDVBN3FoWExvNHc9ZS0B98DCPgJgBRKvAQgfEqoBChxQWENuWUFiQWNPYjZMc3VZR2REd2NtVW1kaTg9EiQ1NjA1NWMxMS00NWMzLTQzM2MtOWViMS1mZDdmZDQxNDExZmYYACAAKAAw1OyDm+4yOLnvjKreMkC574yq3jJKHHdpcmpFOHAxRUZQVldDS2ZGWXpUUFlPNW5udz1aISIf////eE1CbnQvS2R0cTgxZStSb2Z1VVFGM1hlc3o4PWX5uiM4wj4CYAUSrwEIHhKqAQoccDVEVnRJbDRIMEp5czBiODRXUGQ5Q2d5S0VnPRIkMDJjMmU1MWQtYjM3YS00ZDBhLTg4MzktMTE1YjMxNmVjN2E4GAAgACgAMK7tnPHPMjji8JzxzzJA4vCc8c8yShwvMnRiemxUdENOVlcwdjljcUtydElZZE0rdnc9WiEiH////mRIWXVOZTNFQ0o5WEhsK0RhazFLVnJPbG92TT1lIdfYJ8I+AmAFErABCCISqwEKHEExU3NxWEJGeEFDZTBMUUt6Z3pmRFdQSS9Uaz0SJGQ3NDNkNDU5LTgyZTgtNDk4NS1hZmU1LTIzMWQxYjEzNTUzZRgAIAAoADCAgqra/jI4tvjQz/UyQLb40M/1MkocRVNkWGtBUDcyN1ZocHVhNTZvbjFEYlN4OFZVPVoiIiD////vQURua1N3MFJaNWFLOTJmVmFEcENvcG9YSXFvPWWbIW4Nwj4CYAUSrwEIHBKqAQocM3FOTHkyRURmTG5BUytzcUN2dEp6bjF5eS9vPRIkYzI1ZDJiYTctY2IxNS00ZTg4LTg0MzQtMDY0N2YyNDVjMzljGAAgACgAMK3Wrtr+Mjj9go+FzzJA/YKPhc8yShxCUkhnWklYM1NMYWZZMjlSQXlXQkdhVGNIWGc9WiEiH///+itlNUhtdEllcFllWlVIQUlTdS82NHhyRDdrND1l+f76dMI+AmAFEq8BCBsSqgEKHGRxcURZdWtWVllnSU9qSE9TWDAvSnh4aFc3WT0SJGY0ZWFjYzRjLWNiZDMtNDQyNS1iZjQyLTY3MWZmYWM5NjU3OBgAIAAoADC0+eG3szI4/frht7MyQP364bezMkocZncxNnZla1BtZWNIR3lweXU3UHBLU1ZlcnFrPVohIh////UvOUZjSmpzelhDMGpCMGVTeWF1dUdiOFpjbFk9Zacc0hnCPgJgBRKuAQgXEqkBChw4czgwbU1JT2dXWGtza2UvSzNLZWtCaVBuQTQ9EiQ5NzY5MjJjZS05MDczLTQxMTEtYmViYi00NWE5NmIxMmU3ZmYYACAAKAAwj9WxmoAzONKMjIDfMUDSjIyA3zFKHGlCKzg5cVlQUDVSL1dTWjRxVVNtY1d3dlpEdz1aICIe/+NjK3RlTUxNT1k4bU11NWVaZE93OEM4NE02WlU9ZZx+sETCPgJgBRKtAQgLEqgBChxxOHRUb0RaK2VyN0RPY0c1SkJxUU9YeTAyUFk9EiQyYmRlNWQ1MC1hNWY1LTQ5OTYtODE4Ny05YjM5ZWUzMWZkMjgYACAAKAAwk7vGqO0yOImN2fj8MECJjdn4/DBKHE1MK2RmNzZ3TjlEdG1yUW85dWlNbGlTYjV3MD1aHyId/TZHNlgwQ093N3RmeW1KK0NsNnM2ejZLQjZxYz1lnH6wRMI+AmAFEqwBCAYSpwEKHFd5YzB5a0s4ZmZDeXRZaEd4SmNjNy9QYWJzQT0SJGE4MzBhMzQ1LTMxZjMtNDRlOC04ODgxLTA0MzNmYzAyMGFjNhgAIAAoADCI7++3rDA4gvDvt6wwQILw77esMEocam1ObzcycHVPZ3hrdXJrNE1OblJWTE1uL3VBPVoeIhwyQjc4aU44VmtEa0RpZm4vQ3ZjYnFXeVdNeTg9ZQAAAADCPgJgABKuAQgWEqkBChx0Um53SGwwRXg1ekl3QmxBdEFsamU5SS9HOEk9EiRlMjM3YTRlYi00N2FkLTRkZDAtODExZi0xMDE2M2Y0NjEzYzQYACAAKAAw9/rMqO0yONL4m9znMUDS+Jvc5zFKHDlsL0dkUm11Y3EvMmk2d3ZpSVVReWhvNVJlRT1aICIe/9o0ZmVEOTNLcm1xc3dkdE90MnF5YXJUb0w5bW89ZScr1EHCPgJgBRKtAQgQEqgBChxlVXprVnVxOU9mbjNqandZNGtUUkcxenlYblk9EiQ5MmQ0NjYyMC00ZTNhLTQ1ODYtOGY1NS0xYTZhNzQ1YjllYWYYACAAKAAw1rStmoAzOKSAwarIMECkgMGqyDBKHGlSVGdOeUV3MWhoN1c4L0RlL0UySklBMzh4QT1aHyIdum1RYWV0VytFZFNzT3JXM2lKa0JZVS9zaHNOST1lU7AqlsI+AmAFEq4BCBUSqQEKHHF0WEZMMm90QWJHS2ozaE5LZEw1OGFYamtCbz0SJDczMDJhNDllLWJjOTYtNDU2Zi05YWUwLTFhNzE0MWRlOWE5NxgAIAAoADC12LvD7jI4lYXlruAxQJWF5a7gMUocZ0F1bHNCZmFsOVVZMXJCVHlqaDFFYWpIcjdvPVogIh7/tVFObC93TE12cm5SNTU3eHZKMjhicDRPR1UrOD1lJyvUQcI+AmAFEq0BCBMSqAEKHEFMMFE1QUNBcys4ZU9OTWZrQkFZTEVQMmhCTT0SJGM2MjcxYjMxLTA0MWItNDJiYy1hYTBiLTY3Y2I4Y2E5NWJhMhgAIAAoADCMys2o7TI46qTrzL0xQOqk68y9MUocZnU0SkJYMS93OEUxTWZuaDRXR3VqYTdoeENJPVofIh3+bVZxUUVQM0VkY28rMmVtMDI3a2NWVWloSDJBPWWcfrBEwj4CYAUSrQEIERKoAQocVGJkOXhRSFBIZEk4bG9uZTNtWngyYnFYK3YwPRIkYTE4ODdkNzEtZjY2ZS00MjY0LTliMTQtOTNjNTgwYTU2ZjQwGAAgACgAMPyVl9TfMji0gMGqyDBAtIDBqsgwShxWY2dOOU1yYmdoV29MemdldEYzQXlKUlhLdGs9Wh8iHd1nWmdVK2RlNk0zTFl5MVBPRERWUkFYdG9valk9ZcCi/V7CPgJgBRKtAQgKEqgBChxuOVZIQzIwTWhoWGtnWTVCQVphUnhUYVNGWnM9EiQ0Y2NiYjYzZi1iOGZhLTRhNTAtYTNhNS1mZDcwZTllOWM1N2QYACAAKAAws9DqzpoyOMDU6s6aMkDA1OrOmjJKHDh3ME5ybEJXWGgrK3FORXE0ekFlcWJlait3OD1aHyId+3VndlEwWStvVU8vOEFyanRtNHdCc3FVQ1dtND1ldb41UsI+AmAFEq0BCBQSqAEKHHVTbXJIQzdKQVlFeE16ZlNrdlhQVloyYXp5cz0SJDU5Y2JiNTAxLWRiMTEtNDIyMy05MTFhLTVkOTFjYTk1YmIwMhgAIAAoADCWzY379zI4lueMgN8xQJbnjIDfMUoceTMva3lwSnJKenI3blM0WWxuUWpsR1Z2SjhjPVofIh3/NEJLMGZZeG1xQVNVdDdjVHRjN3k2aWsvdmdBPWWcfrBEwj4CYAUSrgEIGBKpAQocY0ZEVjh6cTI0SnBIR2x2SUttdVFhaklwcU1nPRIkZDkyNTY1ZGItNzUzMS00YmVjLWExZDUtMzE1OWEwZDMxZDEzGAAgACgAMLbYu8PuMjijjabc5zFAo42m3OcxShxSdm9jNll2a1d1blNlZDN5Rk4wdk5NZmJuNDg9WiAiHv/tY1FmV0pIT2FhUUV3S1VXQW5teDgvSXdyOUdNPWUnK9RBwj4CYAUSrAEIDxKnAQocalg2OHZOTklNd0EyZkViZmFKY2hqZERRRGZzPRIkODg4YjA1OTQtODM0Ny00YjY0LWFiOWItMTI5ZWRlMmZiMDFjGAAgACgAMICDgaiAMzj1/8CqyDBA9f/AqsgwShxMRzFwZC9paGxuSVUrVytDYmpvMkM0N3BIb0k9Wh4iHHRUU3UyUGdmTWRwQzFWMHQ5T1NhQk1ZdFJsYz1lU7AqlsI+AmAFErABCCASqwEKHHBSdWlEN0ZoQjRxYVZYd0ZhTmpBZ2pVV3hPRT0SJGNlMDJjMmIyLTE1NjMtNDRlOS05OGIxLTVhZDQ3Y2Q2YjM2YRgAIAAoADD6i8DI+TI4woL29e4yQMKC9vXuMkocczdtZ1RVYjZueXFGVWl6K080ak11cTBOL29zPVoiIiD///+8TXZ2MW9CaVpadGZ6RHliMTNLM0g0dVJmOHA0PWXWDO5jwj4CYAUSrwEIGhKqAQocSklIMzl0UXlOQlVZNis4aDJYVWhVOUIvaExVPRIkOTgxZTM4OTAtOTQzYy00MjY5LWEzODgtOGMyMjIzOTY4NjUyGAAgACgAMIzmnuCeMjipn57gnjJAqZ+e4J4yShxidDJLYnF5R0RJTUpzY1RzNXpJTDhEbXZ3ZXM9WiEiH///63BkZ0NxL0QvQVJtNm05UmRZL3lqcUZWZi9zRT1l7x0JJcI+AmAFEq0BCA4SqAEKHG1nSERpN1JlakdrT3JYUWllZXB4b0hHLzRidz0SJDVmOWI2ZGVhLWY1YTUtNGU5MS1hOGM0LTg3ZGQzOTYyZWE5YxgAIAAoADCV8IeTrDE4p//AqsgwQKf/wKrIMEocOUtYQjBueDRYVVROK1FvR1FuS3pIQjRlV3BZPVofIh28L0YvakZ2SllENzVGQUVjN1dPd0VraVM1MTlvPWUAAAAAwj4CYAASrAEIBxKnAQocaE1SUVBYcldDN01aTWt2NmlRa3RVUzE0dDRVPRIkNGY1OTI3MjctMjc2Zi00OGQ3LTljYjktZDdiNTkwYTQ1ZTdlGAAgACgAMNiH3eavMjil7OuZojFApezrmaIxShxMSm9KRXRkaHVKWDNJd0N0ajdSVHN1a3JKR2s9Wh4iHHhhYzBIYTJPTi9VQW5GTUVkVGdSMUJkeWJXbz1lTtqEN8I+AmAFEo4BCAESiQEKHHl4Si82ZnZrZWNyN2twNUVRekI0dFdMcGRiRT0SJGY1NDAwNjI3LTg4M2UtNTk5Mi05YzExLThlYTgzNjFmZTEyMRgAIAAoADCe/9LisDA4nbjEt/8vQJ24xLf/L0ocYVJDV0xnaEY5YjVJbnFLSUR2dUovanZRa0ZjPVoAZQAAAADCPgJgABKtAQgSEqgBChwvc3VQVVpNVmo3dDZPSUpxcWFFY2p2aFBXT1E9EiQ1ZmQ4NTY2Zi02NjUyLTQ1YjktYTViOS1jN2FlMWNmYzBhZmEYACAAKAAw3sLeg8IxONOAwarIMEDTgMGqyDBKHEtFS2t2LzMyYnNRUURIY3cyVkx0NjhzMWZzTT1aHyId7lI5WWxOVjR3S1VvejRUR3JndWlrUytHbDhKUT1lLmQbXMI+AmAFEo4BCAMSiQEKHG5qZ0R1ODhlQ3J2WHA4NnBEN2ZIR2NxRnA4OD0SJGIwZTIxMmI0LTQ1ZjQtNTM2MC04MzViLTZjYmFhN2ZmZTBhNxgAIAAoADCe/9LisDA47rfEt/8vQO63xLf/L0oceXpOQjAxY241NEE3Y1JVMHVUKy9QZ21UdFVvPVoAZQAAAADCPgJgABKuAQgMEqkBChxWK1BLeVNGRzBLWDZqQnFrMHdLOWcvV1RDM2c9EiRiNWJjMGIxYS0yZjQwLTQ0NjItYWUzOC1iM2YwNDU0ZjUxYjUYACAAKAAw9NXe1/IyOLWM2JmOMUC1jNiZjjFKHEd4YVdYemMxRTRBSGJyZ3BvVXcwalF4dDlrYz1aICIe/9tGbTJsb0JBZTJacFNIZW1PNnpiMytudGdmYzQ9ZT/beR3CPgJgBRKtAQgJEqgBChxWTWUyVDEwbUpqY0NOVzNxNk1lWk45bmNnVmc9EiQ4M2ZlMDNiNC04YTk2LTQ5NjktOGRhMC0yOGVmNThlYWQ1YzIYACAAKAAwuZyT/eMyOJqs9NGoMUCarPTRqDFKHFlhM1BkZTE3eHFLUXhPaHcwTmp6cmY0QnZaRT1aHyId900zUnNXc29COEdMdWVHVDFOMVloSzhUNHZ4VT1lbr2n0MI+AmAFEq0BCAgSqAEKHFBqM05IclRsbFpBWDFJblE0MlRrdzJydkVxRT0SJDg4NWJmNmNmLWRmNjYtNGNkZi05MWE1LWU2NGVlN2EzNDhjNBgAIAAoADCx0OrOmjI48+iRv6IxQPPokb+iMUocYkQzaHN5YjJCU08rMTJ6b3BaMm56RFZNY3B3PVofIh28NVdMYTQrREt6RWU1aFZjSEJ5Vll5cFpMeW5NPWXvHQklwj4CYAUSrAEIDRKnAQocRkNpOGJ1NkFnVE9SUEgwaURENDhoZDVzMlRNPRIkNjkwYTRmMzEtOTM1MS00ZGZhLTkzNjctMjIwZGUwNTZkYjg3GAAgACgAMLDQ6s6aMjjT7++3rDBA0+/vt6wwShxjU1NCTHZzUFpOTGJLaFYyOGJDVTBZWkpRNWc9Wh4iHHlDdXV1Y25sSFNrWEtJc0JXVEtmUmNFTVFnOD1ldb41UsI+AmAFErABCCMSqwEKHG9hSmQvc0VLZWdnL0FSQk53czREcTZ2RXhjUT0SJGJlNmMwYjI4LWUzY2ItNDU2ZS1iMzk5LTRiOWQ3MzJiNGY0NhgAIAAoADC5prCJ/TI4jsiP4/wyQI7Ij+P8MkocTUw2UkxocC84QmFMNVZNa29INHBtaG5iakhNPVoiIiD////3UmVOUUIydHIyMzNLWDJXQitMMlU5RWhrTGRnPWXzztVWwj4CYAUSrwEIHRKqAQocRXorS0pVa1BNR1R4ZGcwUkt6cmZKUkovazJVPRIkZjE3NTBlZTgtZWFlNC00MDFjLThhMDEtYjczMjg4OWMzZDU4GAAgACgAMKiEzKjtMjjd9KOFzzJA3fSjhc8yShxZU091WTgvbTlQejdSSFcyajBPd2tkZi9JT0U9WiEiH////UNCMGJ1VkpkYVplY2hkUHl6bzVxbnA4STg4Yz1lJyvUQcI+AmAFEq4BCBkSqQEKHFNzZjhYdGhFMkVKcml0UUVQS2FsUmpFcE5GVT0SJDExYmU4MTI2LWE1YmQtNDg5Mi05MGJhLWQ0ZTM4MGUxNjlkZRgAIAAoADC02LvD7jI4vo+mjO4xQL6PpozuMUocL0FSbnNvMkNuWSt6bE1qK2pDbWVtMkF2blpvPVogIh7/+zd1OWoyd1JxYjYyRCtJMy9aVWRJTmx4ZEF2UT1lQ0R2lsI+AmAFEo4BCAISiQEKHFljU1RvbnZFU1B3cUNzNEwyY3JWaHY2OEw5OD0SJDIyMDljMmMzLTUzOWQtNWQxNS04ZTJiLWJjNzFkZjI1YzY1YhgAIAAoADCe/9LisDA4z7fEt/8vQM+3xLf/L0ocb1BWa2h3QlJiVjY1S0NXUjIrSU9OSFdvT3U4PVoAZQAAAADCPgJgADAAOAA=",
+   "version": 1
+}

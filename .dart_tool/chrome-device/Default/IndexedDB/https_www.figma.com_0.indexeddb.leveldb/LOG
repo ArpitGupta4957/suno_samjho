@@ -1,0 +1,7 @@
+2025/07/14-14:31:25.301 3a64 Reusing MANIFEST C:\Users\arpit\AppData\Local\Temp\flutter_tools.22f03bf1\flutter_tools_chrome_device.ab1e2ab8\Default\IndexedDB\https_www.figma.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/07/14-14:31:25.302 3a64 Recovering log #3
+2025/07/14-14:31:25.303 3a64 Reusing old log C:\Users\arpit\AppData\Local\Temp\flutter_tools.22f03bf1\flutter_tools_chrome_device.ab1e2ab8\Default\IndexedDB\https_www.figma.com_0.indexeddb.leveldb/000003.log 
+2025/07/14-14:31:25.349 3a10 Level-0 table #5: started
+2025/07/14-14:31:25.352 3a10 Level-0 table #5: 3284 bytes OK
+2025/07/14-14:31:25.354 3a10 Delete type=0 #3
+2025/07/14-14:31:25.354 3a10 Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)

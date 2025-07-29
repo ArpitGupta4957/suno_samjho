@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "suno_samjho (Flutter Medium Phone API 36.0)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "Medium_Phone_API_36.0",
+      "program": "lib/main.dart"
+    }
+  ]
+}
