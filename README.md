@@ -49,8 +49,6 @@ graph TD
     D --> G[Profile & Settings]
 ```
 
----
-
 ## 📸 Screenshots *(Coming Soon)*  
 
 ---
