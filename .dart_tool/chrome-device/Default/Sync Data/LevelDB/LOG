@@ -1,4 +1,7 @@
-2025/07/26-19:13:30.264 394c Reusing MANIFEST C:\Users\arpit\AppData\Local\Temp\flutter_tools.bcf711c3\flutter_tools_chrome_device.da125c85\Default\Sync Data\LevelDB/MANIFEST-000001
-2025/07/26-19:13:30.265 394c Recovering log #4
-2025/07/26-19:13:30.266 394c Reusing old log C:\Users\arpit\AppData\Local\Temp\flutter_tools.bcf711c3\flutter_tools_chrome_device.da125c85\Default\Sync Data\LevelDB/000004.log 
-2025/07/26-19:13:30.266 394c Delete type=0 #3
+2025/11/16-00:59:17.017 894 Reusing MANIFEST C:\Users\arpit\AppData\Local\Temp\flutter_tools.5b15753d\flutter_tools_chrome_device.6b9f4cb4\Default\Sync Data\LevelDB/MANIFEST-000001
+2025/11/16-00:59:17.023 894 Recovering log #4
+2025/11/16-00:59:17.032 894 Reusing old log C:\Users\arpit\AppData\Local\Temp\flutter_tools.5b15753d\flutter_tools_chrome_device.6b9f4cb4\Default\Sync Data\LevelDB/000004.log 
+2025/11/16-00:59:17.034 894 Delete type=0 #3
+2025/11/16-01:18:09.478 303c Level-0 table #8: started
+2025/11/16-01:18:09.487 303c Level-0 table #8: 145076 bytes OK
+2025/11/16-01:18:09.491 303c Delete type=0 #4

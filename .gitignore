@@ -42,3 +42,42 @@ lib/generated_plugin_registrant.dart
 lib/**.g.dart
 lib/**.freezed.dart
 .dart_tool/
+
+# IDEs
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Secrets
+.env
+.env.*
+
+# Flutter build outputs
+.flutter_build/
+
+# Fastlane / CI artifacts
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/metadata
+
+# Node / front-end
+node_modules/
+yarn.lock
+
+# Archive / binaries
+*.gz
+*.zip
+*.jar
+*.war
+*.ear
+

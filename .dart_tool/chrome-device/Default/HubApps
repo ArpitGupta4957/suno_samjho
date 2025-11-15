@@ -32,9 +32,9 @@
       "description": "Contextually relevant info for any page",
       "icon": {
          "raster_icon": {
-            "dark_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_copilot_rainbow.png/1.3.22/asset",
-            "high_contrast": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_copilot_hc.png/1.3.22/asset",
-            "light_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_copilot_rainbow.png/1.3.22/asset"
+            "dark_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_copilot_rainbow.png/1.3.23/asset",
+            "high_contrast": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_copilot_hc.png/1.3.23/asset",
+            "light_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_copilot_rainbow.png/1.3.23/asset"
          }
       },
       "id": "cd4688a9-e888-48ea-ad81-76193d56b1be",
@@ -45,19 +45,36 @@
       "name": "Copilot",
       "notifications": {
          "enabled": true,
-         "nudge_triggers|flight:msOmniboxSummarizeNotificationNudge": [ {
+         "nudge_triggers": [ {
             "configs": {
                "cooldown_cap": 86400,
                "endpoints": {
-                  "commercial": true,
+                  "commercial|flight:msOmniboxSummarizeNotificationNudge": true,
                   "consumer": false
                },
-               "form_code": "UNDADDRESSBAR",
+               "form_code": "CMMZZS81TSY",
                "max_nudge_display_count": 10,
                "min_sec_between_nudges": 3600,
                "nudge_display_basis": "signal",
                "prompt": "Summarize this page.",
                "signal_name": "IsKnowledgeCardQuery",
+               "signal_threshold_value": 0.7
+            },
+            "text": "Summarize",
+            "type": "triggering_config"
+         }, {
+            "configs": {
+               "cooldown_cap": 86400,
+               "endpoints": {
+                  "commercial|flight:msOmniboxSummarizeNotificationNudge": true,
+                  "consumer": false
+               },
+               "form_code": "CMM5YEJMIQX",
+               "max_nudge_display_count": 10,
+               "min_sec_between_nudges": 3600,
+               "nudge_display_basis": "signal",
+               "prompt": "Summarize this page.",
+               "signal_name": "IsTopNewsDomain",
                "signal_threshold_value": 0.7
             },
             "text": "Summarize",
@@ -124,7 +141,7 @@
       "target": {
          "command": "discover_chat"
       },
-      "version": "1.3.22"
+      "version": "1.3.23"
    }, {
       "capabilities": {
          "deprecated_hide_header": true

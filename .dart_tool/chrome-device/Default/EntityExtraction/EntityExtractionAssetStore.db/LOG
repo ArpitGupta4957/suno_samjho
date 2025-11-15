@@ -1,3 +1,5 @@
-2025/07/26-19:13:36.625 4d34 Reusing MANIFEST C:\Users\arpit\AppData\Local\Temp\flutter_tools.bcf711c3\flutter_tools_chrome_device.da125c85\Default\EntityExtractionAssetStore.db/MANIFEST-000001
-2025/07/26-19:13:36.631 4d34 Recovering log #3
-2025/07/26-19:13:36.634 4d34 Reusing old log C:\Users\arpit\AppData\Local\Temp\flutter_tools.bcf711c3\flutter_tools_chrome_device.da125c85\Default\EntityExtractionAssetStore.db/000003.log 
+2025/11/16-00:59:20.439 1f7c Reusing MANIFEST C:\Users\arpit\AppData\Local\Temp\flutter_tools.5b15753d\flutter_tools_chrome_device.6b9f4cb4\Default\EntityExtractionAssetStore.db/MANIFEST-000001
+2025/11/16-00:59:20.464 1f7c Recovering log #3
+2025/11/16-00:59:20.466 1f7c Level-0 table #3: started
+2025/11/16-00:59:20.541 1f7c Level-0 table #3: 231233 bytes OK
+2025/11/16-00:59:20.547 1f7c Delete type=0 #3
