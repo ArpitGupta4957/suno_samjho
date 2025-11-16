@@ -1,9 +1,118 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../services/auth_service.dart';
+import '../home/main_page.dart';
 import 'login_screen.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  bool _loading = false;
+  String? _error;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleSignup() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      final name = _nameController.text.trim();
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
+      final confirm = _confirmPasswordController.text;
+      if (name.isEmpty ||
+          email.isEmpty ||
+          password.isEmpty ||
+          confirm.isEmpty) {
+        throw Exception('All fields required');
+      }
+      if (password != confirm) {
+        throw Exception('Passwords do not match');
+      }
+      // Basic password length check (customize as needed)
+      if (password.length < 6) {
+        throw Exception('Password must be at least 6 characters');
+      }
+      await AuthService.instance.signUp(
+        email: email,
+        password: password,
+        name: name,
+      );
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) =>
+              DashboardPage(userName: name.isNotEmpty ? name : 'User'),
+        ),
+      );
+    } catch (e) {
+      setState(() => _error = e.toString());
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _handleGoogleOAuth() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      await AuthService.instance.signInWithGoogle();
+      if (!mounted) return;
+      final userName = AuthService.instance.getUserName();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
+      );
+    } catch (e) {
+      setState(
+        () => _error =
+            'Authentication failed: ${e.toString().replaceAll('Exception: ', '')}',
+      );
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _handleAppleOAuth() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      await AuthService.instance.signInWithApple();
+      if (!mounted) return;
+      final userName = AuthService.instance.getUserName();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
+      );
+    } catch (e) {
+      setState(
+        () => _error =
+            'Authentication failed: ${e.toString().replaceAll('Exception: ', '')}',
+      );
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +126,11 @@ class SignupScreen extends StatelessWidget {
               horizontal: isSmallScreen ? 16 : 64,
               vertical: isSmallScreen ? 16 : 32,
             ),
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Sign up',
+                  'Create Account',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -37,6 +145,7 @@ class SignupScreen extends StatelessWidget {
                   false,
                   isSmallScreen,
                   svgAsset: 'assets/profile.svg',
+                  controller: _nameController,
                 ),
                 const SizedBox(height: 12),
                 _buildTextField(
@@ -44,6 +153,7 @@ class SignupScreen extends StatelessWidget {
                   false,
                   isSmallScreen,
                   svgAsset: 'assets/mail.svg',
+                  controller: _emailController,
                 ),
                 const SizedBox(height: 12),
                 _buildTextField(
@@ -51,7 +161,23 @@ class SignupScreen extends StatelessWidget {
                   true,
                   isSmallScreen,
                   svgAsset: 'assets/password.svg',
+                  controller: _passwordController,
                 ),
+                const SizedBox(height: 12),
+                _buildTextField(
+                  'Confirm Password',
+                  true,
+                  isSmallScreen,
+                  svgAsset: 'assets/password.svg',
+                  controller: _confirmPasswordController,
+                ),
+                if (_error != null) ...[
+                  const SizedBox(height: 12),
+                  Text(
+                    _error!,
+                    style: const TextStyle(color: Colors.red, fontSize: 13),
+                  ),
+                ],
                 const SizedBox(height: 24),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -61,16 +187,25 @@ class SignupScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {},
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(
-                      color: const Color(0xFFD4D4D4),
-                      fontSize: isSmallScreen ? 18 : 24,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  onPressed: _loading ? null : _handleSignup,
+                  child: _loading
+                      ? const SizedBox(
+                          height: 26,
+                          width: 26,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: const Color(0xFFD4D4D4),
+                            fontSize: isSmallScreen ? 18 : 24,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -96,19 +231,21 @@ class SignupScreen extends StatelessWidget {
                   'Sign in with Google',
                   svgAsset: 'assets/googleLogo.svg',
                   isSmallScreen: isSmallScreen,
+                  onPressed: _loading ? null : _handleGoogleOAuth,
                 ),
                 const SizedBox(height: 8),
                 _buildSocialButton(
                   'Sign in with Apple',
                   svgAsset: 'assets/appleLogo.svg',
                   isSmallScreen: isSmallScreen,
+                  onPressed: _loading ? null : _handleAppleOAuth,
                 ),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account ?',
+                      'Already have an account?',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: isSmallScreen ? 14 : 16,
@@ -120,7 +257,7 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const LoginScreen(),
                           ),
@@ -153,8 +290,10 @@ class SignupScreen extends StatelessWidget {
     bool obscure,
     bool isSmallScreen, {
     String? svgAsset,
+    required TextEditingController controller,
   }) {
     return TextField(
+      controller: controller,
       obscureText: obscure,
       decoration: InputDecoration(
         prefixIcon: svgAsset != null
@@ -188,6 +327,7 @@ class SignupScreen extends StatelessWidget {
     String text, {
     required String svgAsset,
     required bool isSmallScreen,
+    VoidCallback? onPressed,
   }) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -198,7 +338,7 @@ class SignupScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 0,
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       icon: SvgPicture.asset(svgAsset, width: 24, height: 24),
       label: Text(
         text,
