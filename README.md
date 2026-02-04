@@ -44,6 +44,26 @@ Our goal is simple: **make mental health support affordable, accessible, and sti
 
 ## 🚀 Getting Started  
 
+### Prerequisites  
+
+Before you begin, ensure you have the following installed:
+
+| Tool | Version | Installation |
+|------|---------|--------------|
+| **Flutter SDK** | 3.8.0+ | [flutter.dev/docs/get-started/install](https://flutter.dev/docs/get-started/install) |
+| **Dart SDK** | 3.8.1+ | Included with Flutter |
+| **Git** | Latest | [git-scm.com](https://git-scm.com/) |
+| **Android Studio** (for Android) | Latest | [developer.android.com](https://developer.android.com/studio) |
+| **Xcode** (for iOS, macOS only) | 14+ | App Store |
+| **Chrome** (for Web) | Latest | [google.com/chrome](https://www.google.com/chrome/) |
+
+Verify your Flutter installation:
+```bash
+flutter doctor
+```
+
+---
+
 ### 1️⃣ Clone the Repository  
 ```bash
 git clone https://github.com/your-username/suno-samjho.git
@@ -55,16 +75,60 @@ cd suno-samjho
 flutter pub get
 ```
 
-### 3️⃣ Configure Environment Variables  
-Create a `.env` file in the root:  
-```
-SUPABASE_URL=your-url
-SUPABASE_ANON_KEY=your-anon-key
+### 3️⃣ Configure Supabase & Environment Variables  
+
+This app uses **Supabase** for authentication and database. You'll need to set up your own Supabase project or use the shared development credentials.
+
+#### Option A: Use Shared Dev Credentials (Recommended for Contributors)
+Request access to the shared development Supabase project by:
+1. Opening an issue with the label `access-request`
+2. A maintainer will add you to the dev project and share credentials
+
+#### Option B: Create Your Own Supabase Project
+1. Go to [supabase.com](https://supabase.com) and create a free account
+2. Create a new project
+3. Navigate to **Settings → API** to find your credentials
+4. Enable **Email/Password** and **Google OAuth** in **Authentication → Providers**
+
+#### Create the `.env` File
+Create a `.env` file in the project root (this file is gitignored):
+```env
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_ANON_KEY=your-anon-key-here
 ```
 
+> ⚠️ **Never commit your `.env` file!** It contains sensitive credentials.
+
+---
+
 ### 4️⃣ Run the App  
+
+#### Web (Easiest for Development)
 ```bash
-flutter run
+flutter run -d chrome
+```
+
+#### Android
+```bash
+flutter run -d android
+```
+
+#### iOS (macOS only)
+```bash
+flutter run -d ios
+```
+
+#### All Available Devices
+```bash
+flutter devices       # List available devices
+flutter run -d <device_id>
+```
+
+---
+
+### 🧪 Running Tests
+```bash
+flutter test
 ```
 
 ---
@@ -92,10 +156,92 @@ flutter run
 
 We welcome contributors from **AI, Flutter, healthcare & design** backgrounds!  
 
-1. Fork this repository  
-2. Create a feature branch (`feature/your-feature`)  
-3. Commit and push your changes  
-4. Open a Pull Request 🎉  
+### 🏷️ Good First Issues  
+
+New to the project? Look for issues labeled with:
+
+| Label | Description |
+|-------|-------------|
+| `good first issue` | Beginner-friendly tasks, great for first-time contributors |
+| `help wanted` | Issues where we need community help |
+| `documentation` | Improve docs, READMEs, or code comments |
+| `ui/ux` | Design improvements & accessibility fixes |
+| `bug` | Confirmed bugs that need fixing |
+
+**[→ Browse Good First Issues](../../issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)**
+
+---
+
+### 📝 Contribution Workflow
+
+#### 1. Find or Create an Issue
+- Browse existing [issues](../../issues) or create a new one
+- Comment on the issue to let maintainers know you're working on it
+- Wait for assignment before starting (to avoid duplicate work)
+
+#### 2. Fork & Clone
+```bash
+# Fork via GitHub UI, then:
+git clone https://github.com/YOUR-USERNAME/suno-samjho.git
+cd suno-samjho
+git remote add upstream https://github.com/ORIGINAL-OWNER/suno-samjho.git
+```
+
+#### 3. Create a Feature Branch
+```bash
+git checkout -b feature/your-feature-name
+# or for bugs:
+git checkout -b fix/issue-description
+```
+
+#### 4. Make Your Changes
+- Follow the existing code style
+- Write meaningful commit messages
+- Add tests for new features when possible
+
+#### 5. Test Your Changes
+```bash
+flutter analyze    # Check for lint issues
+flutter test       # Run tests
+flutter run -d chrome  # Manual testing
+```
+
+#### 6. Submit a Pull Request
+```bash
+git push origin feature/your-feature-name
+```
+Then open a PR on GitHub with:
+- Clear description of what you changed and why
+- Reference to the related issue (e.g., `Fixes #123`)
+- Screenshots for UI changes
+
+---
+
+### 📂 Project Structure
+
+```
+lib/
+├── main.dart          # App entry point
+├── auth/              # Authentication screens & logic
+├── chatbot/           # AI chatbot interface
+├── config/            # App configuration & constants
+├── home/              # Home/Dashboard screens
+├── onboarding/        # Onboarding flow
+├── profile/           # User profile management
+├── services/          # API & Supabase services
+├── splash/            # Splash screen
+└── info/              # Info/About screens
+```
+
+---
+
+### ✅ Code Style Guidelines
+
+- Follow [Effective Dart](https://dart.dev/guides/language/effective-dart) conventions
+- Use meaningful variable and function names
+- Keep widgets small and focused (prefer composition)
+- Add comments for complex logic
+- Run `flutter analyze` before committing  
 
 ---
 
