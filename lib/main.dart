@@ -3,7 +3,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'config/supabase_config.dart';
 import 'splash/splash_screen.dart';
-import 'home/main_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,23 +29,8 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(fontFamily: 'OpenSans'),
         ),
       ),
-      // Simple auth gate: if session exists go straight to dashboard
-      home: Supabase.instance.client.auth.currentSession == null
-          ? const SplashScreen()
-          : DashboardPage(
-              userName:
-                  Supabase
-                          .instance
-                          .client
-                          .auth
-                          .currentUser
-                          ?.userMetadata?['name']
-                      as String? ??
-                  Supabase.instance.client.auth.currentUser?.email
-                      ?.split('@')
-                      .first ??
-                  'User',
-            ),
+      // Splash screen handles initial load and transit to AuthGate
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

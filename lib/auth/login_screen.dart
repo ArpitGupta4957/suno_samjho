@@ -46,10 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
         await AuthService.instance.signIn(email: email, password: password);
       }
       if (!mounted) return;
-      final userName = AuthService.instance.getUserName();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
-      );
+      // AuthGate handles the root widget switch.
+      // We need to pop any pushed routes (like Onboarding pages) to reveal Dashboard.
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (e) {
       print('Login error caught: $e'); // Debug log
       final raw = e.toString();
@@ -77,11 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     try {
       await AuthService.instance.signInWithGoogle();
-      if (!mounted) return;
-      final userName = AuthService.instance.getUserName();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
-      );
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (e) {
       setState(
         () => _error =
@@ -99,11 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     try {
       await AuthService.instance.signInWithApple();
-      if (!mounted) return;
-      final userName = AuthService.instance.getUserName();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
-      );
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (e) {
       setState(
         () => _error =
