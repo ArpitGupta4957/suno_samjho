@@ -57,12 +57,9 @@ class _SignupScreenState extends State<SignupScreen> {
         name: name,
       );
       if (!mounted) return;
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) =>
-              DashboardPage(userName: name.isNotEmpty ? name : 'User'),
-        ),
-      );
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (e) {
       setState(() => _error = e.toString());
     } finally {
@@ -77,11 +74,9 @@ class _SignupScreenState extends State<SignupScreen> {
     });
     try {
       await AuthService.instance.signInWithGoogle();
-      if (!mounted) return;
-      final userName = AuthService.instance.getUserName();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
-      );
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (e) {
       setState(
         () => _error =
@@ -99,11 +94,9 @@ class _SignupScreenState extends State<SignupScreen> {
     });
     try {
       await AuthService.instance.signInWithApple();
-      if (!mounted) return;
-      final userName = AuthService.instance.getUserName();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
-      );
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (e) {
       setState(
         () => _error =

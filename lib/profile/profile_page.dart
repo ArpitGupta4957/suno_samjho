@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -250,6 +251,38 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(height: 28),
+
+              // Logout Button
+              SizedBox(
+                width: double.infinity,
+                child: TextButton.icon(
+                  onPressed: () async {
+                    await Supabase.instance.client.auth.signOut();
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  icon: const Icon(Icons.logout, color: Colors.redAccent),
+                  label: Text(
+                    'Logout',
+                    style: TextStyle(
+                      fontSize: isSmall ? 16 : 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: Colors.redAccent.withOpacity(0.2),
+                      ),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 28),
             ],
