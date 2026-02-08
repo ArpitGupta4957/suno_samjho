@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:suno_samjho/services/tts_service.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatbotPage extends StatefulWidget {
   const ChatbotPage({super.key});
@@ -9,8 +11,11 @@ class ChatbotPage extends StatefulWidget {
 
 class _ChatbotPageState extends State<ChatbotPage> {
   bool _isDark = false;
-  final List<Map<String, String>> _messages = [
+  late TtsService _ttsService;
+  
+  final List<Map<String, dynamic>> _messages = [
     {
+      'id': const Uuid().v4(),
       'who': 'bot',
       'text': 'Hello! I am Samjho — how can I help you today?',
       'time': '09:00',
@@ -19,6 +24,21 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _ttsService = TtsService();
+    _ttsService.init();
+  }
+
+  @override
+  void dispose() {
+    _ttsService.stop();
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   ThemeData get _lightTheme => ThemeData(
     brightness: Brightness.light,
@@ -44,13 +64,19 @@ class _ChatbotPageState extends State<ChatbotPage> {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
     setState(() {
-      _messages.add({'who': 'me', 'text': text, 'time': _timeNow()});
+      _messages.add({
+        'id': const Uuid().v4(),
+        'who': 'me',
+        'text': text,
+        'time': _timeNow(),
+      });
       _controller.clear();
     });
     // simple simulated bot reply
     Future.delayed(const Duration(milliseconds: 600), () {
       setState(() {
         _messages.add({
+          'id': const Uuid().v4(),
           'who': 'bot',
           'text': 'Got it — I will help with that.',
           'time': _timeNow(),
@@ -154,6 +180,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                             child: _bubble(
                               msg['text'] ?? '',
                               msg['time'] ?? '',
+                              msg['id'] ?? '',
                               isMe,
                               theme,
                             ),
@@ -184,7 +211,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
-  Widget _bubble(String text, String time, bool isMe, ThemeData theme) {
+  Widget _bubble(String text, String time, String messageId, bool isMe, ThemeData theme) {
     final bg = isMe
         ? theme.colorScheme.secondary
         : (theme.brightness == Brightness.dark
@@ -220,9 +247,18 @@ class _ChatbotPageState extends State<ChatbotPage> {
               ),
             ],
           ),
-          child: Text(
-            text,
-            style: TextStyle(color: color, fontSize: 15, height: 1.35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                text,
+                style: TextStyle(color: color, fontSize: 15, height: 1.35),
+              ),
+              if (!isMe) ...[
+                const SizedBox(height: 8),
+                _buildTtsControls(messageId, theme, color),
+              ],
+            ],
           ),
         ),
         const SizedBox(height: 4),
@@ -233,6 +269,66 @@ class _ChatbotPageState extends State<ChatbotPage> {
             style: TextStyle(
               fontSize: 11,
               color: theme.textTheme.bodySmall?.color,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTtsControls(String messageId, ThemeData theme, Color color) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+          onTap: () async {
+            if (_ttsService.isPlaying(messageId)) {
+              await _ttsService.pause();
+              setState(() {});
+            } else if (_ttsService.isPaused(messageId)) {
+              await _ttsService.resume();
+              setState(() {});
+            } else {
+              final msgIndex = _messages.indexWhere((m) => m['id'] == messageId);
+              if (msgIndex != -1) {
+                await _ttsService.speak(_messages[msgIndex]['text'], messageId);
+                setState(() {});
+              }
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+            ),
+            child: Icon(
+              _ttsService.isPlaying(messageId)
+                  ? Icons.pause
+                  : Icons.play_arrow,
+              size: 18,
+              color: color,
+            ),
+          ),
+        ),
+        const SizedBox(width: 4),
+        GestureDetector(
+          onTap: () async {
+            if (_ttsService.getCurrentlyPlayingId() == messageId) {
+              await _ttsService.stop();
+              setState(() {});
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+            ),
+            child: Icon(
+              Icons.stop,
+              size: 18,
+              color: color,
             ),
           ),
         ),
