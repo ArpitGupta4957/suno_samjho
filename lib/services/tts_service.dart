@@ -55,13 +55,12 @@ class TtsService {
     }
   }
 
+  // Note: flutter_tts 4.x doesn't have resume(), so resume is not supported
+  // The pause/resume pattern is removed - use stop/speak instead
   Future<void> resume() async {
-    try {
-      await _flutterTts.resume();
-      _ttsState = TtsState.playing;
-    } catch (e) {
-      print('Error resuming: $e');
-    }
+    // Resume not supported in flutter_tts 4.x
+    // Caller should use stop() and speak() again if needed
+    _ttsState = TtsState.stopped;
   }
 
   Future<void> stop() async {
