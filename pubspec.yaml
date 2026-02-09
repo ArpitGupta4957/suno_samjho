@@ -70,3 +70,6 @@ flutter:
     - assets/password.svg
     - assets/onboardingPage_Img.png
     - assets/Shape.svg
+
+ dependencies:
+  shared_preferences: ^2.2.2
