@@ -1,76 +1,80 @@
 // general_info_page.dart
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GeneralInfoPage extends StatelessWidget {
+class GeneralInfoPage extends StatefulWidget {
   const GeneralInfoPage({super.key});
 
-  // Sample content -- replace with dynamic content from your DB
-  final List<DoctorTip> tips = const [
-    DoctorTip(
-      title: "Follow a routine",
-      body:
-          "A simple daily routine reduces anxiety and gives your mind structure. Start with small steps — wake up, hydrate and plan your day.",
-    ),
-    DoctorTip(
-      title: "Limit overthinking triggers",
-      body:
-          "Avoid content or conversations that leave you mentally drained. Protect your emotional energy.",
-    ),
-    DoctorTip(
-      title: "Talk to someone you trust",
-      body:
-          "Sharing how you feel with a friend or family member can reduce emotional pressure more than you realize.",
-    ),
-  ];
+  @override
+  State<GeneralInfoPage> createState() => _GeneralInfoPageState();
+}
 
-  final List<ActivityItem> activities = const [
-    ActivityItem(
-      title: "4-7-8 Breathing (5 min)",
-      subtitle: "Inhale 4s → Hold 7s → Exhale 8s. Repeat 5 times.",
-      durationMinutes: 5,
-    ),
-    ActivityItem(
-      title: "2-min Thought Dump",
-      subtitle: "Write whatever's on your mind for 2 minutes. No rules.",
-      durationMinutes: 2,
-    ),
-    ActivityItem(
-      title: "Short Walk",
-      subtitle: "5 minute walk to reset your mood.",
-      durationMinutes: 5,
-    ),
-  ];
+class _GeneralInfoPageState extends State<GeneralInfoPage> {
+  List<DoctorTip> tips = [];
+  List<ActivityItem> activities = [];
+  List<VideoItem> videos = [];
+  List<String> affirmations = [];
 
-  final List<VideoItem> videos = const [
-    VideoItem(
-      title: "Guided Deep Breathing — 5 min",
-      url: "https://www.youtube.com/watch?v=SE3m6CKs5oM",
-      thumbnail: "https://img.youtube.com/vi/SE3m6CKs5oM/maxresdefault.jpg",
-    ),
-    VideoItem(
-      title: "Understanding Stress in 60 Seconds",
-      url: "https://www.youtube.com/watch?v=example2",
-      thumbnail: "https://img.youtube.com/vi/example2/maxresdefault.jpg",
-    ),
-    VideoItem(
-      title: "Grounding Exercise (5-4-3-2-1)",
-      url: "https://www.youtube.com/watch?v=example3",
-      thumbnail: "https://img.youtube.com/vi/example3/maxresdefault.jpg",
-    ),
-  ];
+  bool loading = true;
 
-  final List<String> affirmations = const [
-    "I am safe. I am grounded.",
-    "My feelings are valid.",
-    "One step at a time is okay.",
-    "I deserve rest and kindness.",
-    "I am learning to take better care of myself.",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    final jsonString =
+        await rootBundle.loadString('assets/general_info.json');
+
+    final data = json.decode(jsonString);
+
+    setState(() {
+      tips = (data['tips'] as List)
+          .map((e) => DoctorTip(title: e['title'], body: e['body']))
+          .toList();
+
+      activities = (data['activities'] as List)
+          .map((e) => ActivityItem(
+                title: e['title'],
+                subtitle: e['subtitle'],
+                durationMinutes: e['durationMinutes'],
+              ))
+          .toList();
+
+      videos = (data['videos'] as List)
+          .map((e) => VideoItem(
+                title: e['title'],
+                url: e['url'],
+                thumbnail: e['thumbnail'],
+              ))
+          .toList();
+
+      affirmations = List<String>.from(data['affirmations']);
+
+      loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Provide the sample data via local variables for building widgets
+    if (loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (tips.isEmpty &&
+        activities.isEmpty &&
+        videos.isEmpty &&
+        affirmations.isEmpty) {
+      return const Scaffold(
+        body: Center(child: Text("No content available")),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("General Info"),
@@ -97,7 +101,6 @@ class GeneralInfoPage extends StatelessWidget {
               _sectionTitle("Helpful Videos"),
               const SizedBox(height: 8),
               SizedBox(
-                // Increased to prevent bottom overflow of VideoCard content
                 height: 210,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
@@ -326,7 +329,6 @@ class _ActivityCardState extends State<ActivityCard> {
             IconButton(
               tooltip: "Start",
               onPressed: () {
-                // Start timer or guided activity
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("Starting: ${widget.item.title}")),
                 );
@@ -368,7 +370,6 @@ class VideoCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // thumbnail
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(12),

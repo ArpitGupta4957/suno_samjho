@@ -69,3 +69,5 @@ flutter:
     - assets/password.svg
     - assets/onboardingPage_Img.png
     - assets/Shape.svg
+    - assets/general_info.json
+

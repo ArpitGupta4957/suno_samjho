@@ -1,0 +1,57 @@
+{
+  "tips": [
+    {
+      "title": "Follow a routine",
+      "body": "A simple daily routine reduces anxiety and gives your mind structure. Start with small steps — wake up, hydrate and plan your day."
+    },
+    {
+      "title": "Limit overthinking triggers",
+      "body": "Avoid content or conversations that leave you mentally drained. Protect your emotional energy."
+    },
+    {
+      "title": "Talk to someone you trust",
+      "body": "Sharing how you feel with a friend or family member can reduce emotional pressure more than you realize."
+    }
+  ],
+  "activities": [
+    {
+      "title": "4-7-8 Breathing (5 min)",
+      "subtitle": "Inhale 4s → Hold 7s → Exhale 8s. Repeat 5 times.",
+      "durationMinutes": 5
+    },
+    {
+      "title": "2-min Thought Dump",
+      "subtitle": "Write whatever's on your mind for 2 minutes. No rules.",
+      "durationMinutes": 2
+    },
+    {
+      "title": "Short Walk",
+      "subtitle": "5 minute walk to reset your mood.",
+      "durationMinutes": 5
+    }
+  ],
+  "videos": [
+    {
+      "title": "Guided Deep Breathing — 5 min",
+      "url": "https://www.youtube.com/watch?v=SE3m6CKs5oM",
+      "thumbnail": "https://img.youtube.com/vi/SE3m6CKs5oM/maxresdefault.jpg"
+    },
+    {
+      "title": "Understanding Stress in 60 Seconds",
+      "url": "https://www.youtube.com/watch?v=example2",
+      "thumbnail": "https://img.youtube.com/vi/example2/maxresdefault.jpg"
+    },
+    {
+      "title": "Grounding Exercise (5-4-3-2-1)",
+      "url": "https://www.youtube.com/watch?v=example3",
+      "thumbnail": "https://img.youtube.com/vi/example3/maxresdefault.jpg"
+    }
+  ],
+  "affirmations": [
+    "I am safe. I am grounded.",
+    "My feelings are valid.",
+    "One step at a time is okay.",
+    "I deserve rest and kindness.",
+    "I am learning to take better care of myself."
+  ]
+}
