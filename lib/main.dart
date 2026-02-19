@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'config/supabase_config.dart';
 import 'splash/splash_screen.dart';
 import 'info/onboarding/onboarding_page1.dart';
 import 'auth/login_screen.dart';
+import 'providers/profile_provider.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,20 +32,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Suno Samjho',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontFamily: 'OpenSans'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Suno Samjho',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(fontFamily: 'OpenSans'),
+          ),
         ),
+        // StartScreen handles the onboarding vs login decision
+        home: const StartScreen(),
       ),
-      // StartScreen handles the onboarding vs login decision
-      home: const StartScreen(),
     );
   }
+
 }
 
 /// ⭐ Entry point that decides: Onboarding -> Login or direct Login
