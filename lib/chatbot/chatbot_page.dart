@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:suno_samjho/services/tts_service.dart';
 import 'package:suno_samjho/services/speech_service.dart';
 import 'package:suno_samjho/services/chat_service.dart';
+import 'package:suno_samjho/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatbotPage extends StatefulWidget {
@@ -12,7 +14,6 @@ class ChatbotPage extends StatefulWidget {
 }
 
 class _ChatbotPageState extends State<ChatbotPage> {
-  bool _isDark = false;
   late TtsService _ttsService;
   final ChatService _chatService = ChatService.instance;
   
@@ -101,26 +102,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
     super.dispose();
   }
 
-  ThemeData get _lightTheme => ThemeData(
-    brightness: Brightness.light,
-    primaryColor: const Color(0xFF1E88E5),
-    scaffoldBackgroundColor: const Color(0xFFF7FAFF),
-    colorScheme: ColorScheme.fromSwatch().copyWith(
-      secondary: const Color(0xFF1E88E5),
-    ),
-    inputDecorationTheme: const InputDecorationTheme(border: InputBorder.none),
-  );
-
-  ThemeData get _darkTheme => ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: const Color(0xFF4A90E2),
-    scaffoldBackgroundColor: const Color(0xFF0D1117),
-    colorScheme: ColorScheme.fromSwatch(
-      brightness: Brightness.dark,
-    ).copyWith(secondary: const Color(0xFF4A90E2)),
-    inputDecorationTheme: const InputDecorationTheme(border: InputBorder.none),
-  );
-
   Future<void> _sendMessage() async {
     final text = _controller.text.trim();
     if (text.isEmpty || _isLoading) return;
@@ -189,7 +170,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
   }
 
   void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback(() {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent + 100,
@@ -202,97 +183,95 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = _isDark ? _darkTheme : _lightTheme;
-    return Theme(
-      data: theme,
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: theme.scaffoldBackgroundColor,
-          centerTitle: false,
-          title: Row(
-            children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: theme.primaryColor,
-                child: const Icon(Icons.chat, color: Colors.white, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Samjho',
-                    style: TextStyle(
-                      color: theme.primaryColor,
-                      fontWeight: FontWeight.w700,
-                    ),
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: theme.scaffoldBackgroundColor,
+        centerTitle: false,
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 18,
+              backgroundColor: theme.colorScheme.primary,
+              child: const Icon(Icons.chat, color: Colors.white, size: 20),
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Samjho',
+                  style: TextStyle(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.w700,
                   ),
-                  Text(
-                    _isLoading ? 'Typing...' : 'Online',
-                    style: TextStyle(
-                      color: theme.textTheme.bodySmall?.color,
-                      fontSize: 12,
-                    ),
+                ),
+                Text(
+                  _isLoading ? 'Typing...' : 'Online',
+                  style: TextStyle(
+                    color: theme.textTheme.bodySmall?.color,
+                    fontSize: 12,
                   ),
-                ],
-              ),
-            ],
-          ),
-          actions: [
-            IconButton(
-              tooltip: _isDark ? 'Switch to light' : 'Switch to dark',
-              icon: Icon(
-                _isDark ? Icons.wb_sunny_outlined : Icons.nightlight_round,
-              ),
-              onPressed: () => setState(() => _isDark = !_isDark),
-              color: theme.primaryColor,
+                ),
+              ],
             ),
           ],
         ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 16,
-                  ),
-                  itemCount: _messages.length,
-                  itemBuilder: (context, i) {
-                    final msg = _messages[i];
-                    final isMe = msg['who'] == 'me';
-                    return Padding(
-                      padding: EdgeInsets.only(top: i == 0 ? 0 : 8, bottom: 4),
-                      child: Row(
-                        mainAxisAlignment: isMe
-                            ? MainAxisAlignment.end
-                            : MainAxisAlignment.start,
-                        children: [
-                          if (!isMe) _avatarSmall(theme),
-                          Flexible(
-                            child: _bubble(
-                              msg['text'] ?? '',
-                              msg['time'] ?? '',
-                              msg['id'] ?? '',
-                              isMe,
-                              theme,
-                              isLoading: msg['isLoading'] == true,
-                              isError: msg['isError'] == true,
-                            ),
-                          ),
-                          if (isMe) const SizedBox(width: 6),
-                        ],
-                      ),
-                    );
-                  },
+        actions: [
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, _) {
+              return IconButton(
+                tooltip: themeProvider.isDarkMode ? 'Switch to light' : 'Switch to dark',
+                icon: Icon(
+                  themeProvider.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
                 ),
-              ),
-              _buildInputBar(theme),
-            ],
+                onPressed: () => themeProvider.toggleTheme(),
+                color: theme.colorScheme.primary,
+              );
+            },
           ),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                itemCount: _messages.length,
+                itemBuilder: (context, i) {
+                  final msg = _messages[i];
+                  final isMe = msg['who'] == 'me';
+                  return Padding(
+                    padding: EdgeInsets.only(top: i == 0 ? 0 : 8, bottom: 4),
+                    child: Row(
+                      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                      children: [
+                        if (!isMe) _avatarSmall(theme),
+                        Flexible(
+                          child: _bubble(
+                            msg['text'] ?? '',
+                            msg['time'] ?? '',
+                            msg['id'] ?? '',
+                            isMe,
+                            theme,
+                            isLoading: msg['isLoading'] == true,
+                            isError: msg['isError'] == true,
+                          ),
+                        ),
+                        if (isMe) const SizedBox(width: 6),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            _buildInputBar(theme),
+          ],
         ),
       ),
     );
@@ -303,8 +282,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
       padding: const EdgeInsets.only(right: 8.0),
       child: CircleAvatar(
         radius: 16,
-        backgroundColor: theme.primaryColor.withOpacity(0.15),
-        child: Icon(Icons.smart_toy, color: theme.primaryColor, size: 18),
+        backgroundColor: theme.colorScheme.primary.withOpacity(0.15),
+        child: Icon(Icons.smart_toy, color: theme.colorScheme.primary, size: 18),
       ),
     );
   }
@@ -312,17 +291,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
   Widget _bubble(String text, String time, String messageId, bool isMe, ThemeData theme, {bool isLoading = false, bool isError = false}) {
     final bg = isMe
         ? theme.colorScheme.secondary
-        : (theme.brightness == Brightness.dark
-              ? Colors.grey[800]
-              : Colors.white);
+        : (theme.brightness == Brightness.dark ? Colors.grey[800] : Colors.white);
     final color = isMe
         ? Colors.white
-        : (theme.brightness == Brightness.dark
-              ? Colors.white70
-              : Colors.black87);
+        : (theme.brightness == Brightness.dark ? Colors.white70 : Colors.black87);
     final align = isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
-    
-    // Error state styling
     final errorColor = isError ? Colors.red : null;
     
     return Column(
@@ -365,17 +338,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      'Thinking...',
-                      style: TextStyle(color: color, fontSize: 15),
-                    ),
+                    Text('Thinking...', style: TextStyle(color: color, fontSize: 15)),
                   ],
                 )
               else
-                Text(
-                  text,
-                  style: TextStyle(color: errorColor ?? color, fontSize: 15, height: 1.35),
-                ),
+                Text(text, style: TextStyle(color: errorColor ?? color, fontSize: 15, height: 1.35)),
               if (!isMe && !isLoading) ...[
                 const SizedBox(height: 8),
                 _buildTtsControls(messageId, theme, color),
@@ -386,13 +353,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
         const SizedBox(height: 4),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: Text(
-            time,
-            style: TextStyle(
-              fontSize: 11,
-              color: theme.textTheme.bodySmall?.color,
-            ),
-          ),
+          child: Text(time, style: TextStyle(fontSize: 11, color: theme.textTheme.bodySmall?.color)),
         ),
       ],
     );
@@ -420,17 +381,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
           },
           child: Container(
             padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-            ),
-            child: Icon(
-              _ttsService.isPlaying(messageId)
-                  ? Icons.pause
-                  : Icons.play_arrow,
-              size: 18,
-              color: color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.transparent),
+            child: Icon(_ttsService.isPlaying(messageId) ? Icons.pause : Icons.play_arrow, size: 18, color: color),
           ),
         ),
         const SizedBox(width: 4),
@@ -443,15 +395,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
           },
           child: Container(
             padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-            ),
-            child: Icon(
-              Icons.stop,
-              size: 18,
-              color: color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.transparent),
+            child: Icon(Icons.stop, size: 18, color: color),
           ),
         ),
       ],
@@ -459,30 +404,20 @@ class _ChatbotPageState extends State<ChatbotPage> {
   }
 
   Widget _buildInputBar(ThemeData theme) {
+    final isDark = theme.brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       color: theme.scaffoldBackgroundColor,
       child: Row(
         children: [
-          IconButton(
-            icon: Icon(Icons.add, color: theme.primaryColor),
-            onPressed: () {},
-          ),
+          IconButton(icon: Icon(Icons.add, color: theme.colorScheme.primary), onPressed: () {}),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
-                color: theme.brightness == Brightness.dark
-                    ? Colors.grey[900]
-                    : Colors.white,
+                color: isDark ? Colors.grey[900] : Colors.white,
                 borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
-                    blurRadius: 6,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 6, offset: const Offset(0, 2))],
               ),
               child: Row(
                 children: [
@@ -491,16 +426,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
                       controller: _controller,
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => _sendMessage(),
-                      decoration: const InputDecoration.collapsed(
-                        hintText: 'Type a message...',
-                      ),
-                      style: TextStyle(
-                        color: theme.textTheme.bodyMedium?.color,
-                        fontSize: 15,
-                      ),
+                      decoration: const InputDecoration.collapsed(hintText: 'Type a message...'),
+                      style: TextStyle(color: theme.textTheme.bodyMedium?.color, fontSize: 15),
                       minLines: 1,
                       maxLines: 4,
-                      enabled: !_isLoading, // Disable input while loading
+                      enabled: !_isLoading,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -508,12 +438,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     onTap: _isLoading ? null : _sendMessage,
                     child: CircleAvatar(
                       radius: 18,
-                      backgroundColor: _isLoading ? Colors.grey : theme.primaryColor,
-                      child: const Icon(
-                        Icons.send,
-                        color: Colors.white,
-                        size: 18,
-                      ),
+                      backgroundColor: _isLoading ? Colors.grey : theme.colorScheme.primary,
+                      child: const Icon(Icons.send, color: Colors.white, size: 18),
                     ),
                   ),
                 ],
@@ -527,16 +453,10 @@ class _ChatbotPageState extends State<ChatbotPage> {
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: _isListening
-                    ? Colors.red.withOpacity(0.15)
-                    : Colors.transparent,
+                color: _isListening ? Colors.red.withOpacity(0.15) : Colors.transparent,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                _isListening ? Icons.mic : Icons.mic_none,
-                color: _isListening ? Colors.red : theme.primaryColor,
-                size: 26,
-              ),
+              child: Icon(_isListening ? Icons.mic : Icons.mic_none, color: _isListening ? Colors.red : theme.colorScheme.primary, size: 26),
             ),
           ),
         ],
@@ -544,6 +464,3 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 }
-
-// chatbot_page.dart
-// Chatbot backend integration completed - connects to FastAPI endpoint

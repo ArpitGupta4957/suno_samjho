@@ -4,10 +4,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'config/supabase_config.dart';
+import 'config/theme.dart';
 import 'splash/splash_screen.dart';
 import 'info/onboarding/onboarding_page1.dart';
 import 'auth/login_screen.dart';
 import 'providers/profile_provider.dart';
+import 'providers/theme_provider.dart';
 
 
 Future<void> main() async {
@@ -35,19 +37,20 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()..init()),
       ],
-      child: MaterialApp(
-        title: 'Suno Samjho',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          textTheme: const TextTheme(
-            bodyMedium: TextStyle(fontFamily: 'OpenSans'),
-          ),
-        ),
-        // StartScreen handles the onboarding vs login decision
-        home: const StartScreen(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'Suno Samjho',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.resolvedThemeMode,
+            // StartScreen handles the onboarding vs login decision
+            home: const StartScreen(),
+          );
+        },
       ),
     );
   }
