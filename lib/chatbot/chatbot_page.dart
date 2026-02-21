@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:suno_samjho/services/tts_service.dart';
 import 'package:suno_samjho/services/speech_service.dart';
+import 'package:suno_samjho/services/chat_service.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatbotPage extends StatefulWidget {
@@ -13,6 +14,10 @@ class ChatbotPage extends StatefulWidget {
 class _ChatbotPageState extends State<ChatbotPage> {
   bool _isDark = false;
   late TtsService _ttsService;
+  final ChatService _chatService = ChatService.instance;
+  
+  // Loading state for API calls
+  bool _isLoading = false;
   
   final List<Map<String, dynamic>> _messages = [
     {
@@ -116,9 +121,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
     inputDecorationTheme: const InputDecorationTheme(border: InputBorder.none),
   );
 
-  void _sendMessage() {
+  Future<void> _sendMessage() async {
     final text = _controller.text.trim();
-    if (text.isEmpty) return;
+    if (text.isEmpty || _isLoading) return;
+    
+    // Add user message to the list
     setState(() {
       _messages.add({
         'id': const Uuid().v4(),
@@ -128,19 +135,52 @@ class _ChatbotPageState extends State<ChatbotPage> {
       });
       _controller.clear();
     });
-    // simple simulated bot reply
-    Future.delayed(const Duration(milliseconds: 600), () {
-      setState(() {
-        _messages.add({
-          'id': const Uuid().v4(),
-          'who': 'bot',
-          'text': 'Got it — I will help with that.',
-          'time': _timeNow(),
-        });
+    _scrollToBottom();
+    
+    // Set loading state
+    setState(() => _isLoading = true);
+    
+    // Create a placeholder for bot message (will be updated with API response)
+    final botMessageId = const Uuid().v4();
+    setState(() {
+      _messages.add({
+        'id': botMessageId,
+        'who': 'bot',
+        'text': '...', // Placeholder while loading
+        'time': _timeNow(),
+        'isLoading': true, // Flag to show loading indicator
       });
-      _scrollToBottom();
     });
     _scrollToBottom();
+    
+    try {
+      // Call the FastAPI backend
+      final response = await _chatService.sendMessage(message: text);
+      
+      // Update the bot message with actual response
+      final botIndex = _messages.indexWhere((m) => m['id'] == botMessageId);
+      if (botIndex != -1) {
+        setState(() {
+          _messages[botIndex]['text'] = response.message;
+          _messages[botIndex]['isLoading'] = false;
+        });
+      }
+    } catch (e) {
+      // Handle error - show error message in the chat
+      final botIndex = _messages.indexWhere((m) => m['id'] == botMessageId);
+      if (botIndex != -1) {
+        setState(() {
+          _messages[botIndex]['text'] = 'Sorry, I couldn\'t get a response. Please try again.';
+          _messages[botIndex]['isLoading'] = false;
+          _messages[botIndex]['isError'] = true;
+        });
+      }
+      // Show snackbar with error
+      _showSnackBar('Failed to get response: ${e.toString()}');
+    } finally {
+      setState(() => _isLoading = false);
+      _scrollToBottom();
+    }
   }
 
   String _timeNow() {
@@ -189,7 +229,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     ),
                   ),
                   Text(
-                    'Online',
+                    _isLoading ? 'Typing...' : 'Online',
                     style: TextStyle(
                       color: theme.textTheme.bodySmall?.color,
                       fontSize: 12,
@@ -239,6 +279,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
                               msg['id'] ?? '',
                               isMe,
                               theme,
+                              isLoading: msg['isLoading'] == true,
+                              isError: msg['isError'] == true,
                             ),
                           ),
                           if (isMe) const SizedBox(width: 6),
@@ -267,7 +309,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
-  Widget _bubble(String text, String time, String messageId, bool isMe, ThemeData theme) {
+  Widget _bubble(String text, String time, String messageId, bool isMe, ThemeData theme, {bool isLoading = false, bool isError = false}) {
     final bg = isMe
         ? theme.colorScheme.secondary
         : (theme.brightness == Brightness.dark
@@ -279,6 +321,10 @@ class _ChatbotPageState extends State<ChatbotPage> {
               ? Colors.white70
               : Colors.black87);
     final align = isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    
+    // Error state styling
+    final errorColor = isError ? Colors.red : null;
+    
     return Column(
       crossAxisAlignment: align,
       children: [
@@ -306,11 +352,31 @@ class _ChatbotPageState extends State<ChatbotPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                text,
-                style: TextStyle(color: color, fontSize: 15, height: 1.35),
-              ),
-              if (!isMe) ...[
+              if (isLoading)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(color),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Thinking...',
+                      style: TextStyle(color: color, fontSize: 15),
+                    ),
+                  ],
+                )
+              else
+                Text(
+                  text,
+                  style: TextStyle(color: errorColor ?? color, fontSize: 15, height: 1.35),
+                ),
+              if (!isMe && !isLoading) ...[
                 const SizedBox(height: 8),
                 _buildTtsControls(messageId, theme, color),
               ],
@@ -434,14 +500,15 @@ class _ChatbotPageState extends State<ChatbotPage> {
                       ),
                       minLines: 1,
                       maxLines: 4,
+                      enabled: !_isLoading, // Disable input while loading
                     ),
                   ),
                   const SizedBox(width: 8),
                   GestureDetector(
-                    onTap: _sendMessage,
+                    onTap: _isLoading ? null : _sendMessage,
                     child: CircleAvatar(
                       radius: 18,
-                      backgroundColor: theme.primaryColor,
+                      backgroundColor: _isLoading ? Colors.grey : theme.primaryColor,
                       child: const Icon(
                         Icons.send,
                         color: Colors.white,
@@ -479,4 +546,4 @@ class _ChatbotPageState extends State<ChatbotPage> {
 }
 
 // chatbot_page.dart
-// TODO: Implement ChatbotPage widget
+// Chatbot backend integration completed - connects to FastAPI endpoint
