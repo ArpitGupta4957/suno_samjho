@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:suno_samjho/onboarding/onboarding_page2.dart';
+import 'package:suno_samjho/config/theme.dart';
 
 class OnboardingPage1 extends StatelessWidget {
   const OnboardingPage1({super.key});
@@ -9,9 +10,10 @@ class OnboardingPage1 extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final isSmall = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: isDark ? AppTheme.getDarkCardColor() : Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -25,9 +27,7 @@ class OnboardingPage1 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const OnboardingPage2(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const OnboardingPage2()),
                       );
                     },
                     child: Text(
@@ -43,7 +43,7 @@ class OnboardingPage1 extends StatelessWidget {
 
               const SizedBox(height: 8),
 
-              // Title block (to match the provided design)
+              // Title block
               Text(
                 'Welcome',
                 style: theme.textTheme.titleLarge?.copyWith(
@@ -77,9 +77,7 @@ class OnboardingPage1 extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: isDark
-                              ? Colors.black.withOpacity(0.45)
-                              : Colors.black.withOpacity(0.06),
+                          color: isDark ? Colors.black.withOpacity(0.45) : Colors.black.withOpacity(0.06),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -87,7 +85,6 @@ class OnboardingPage1 extends StatelessWidget {
                     ),
                     child: Stack(
                       children: [
-                        // Image
                         Positioned.fill(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -98,23 +95,16 @@ class OnboardingPage1 extends StatelessWidget {
                                 child: Icon(
                                   Icons.image_outlined,
                                   size: 120,
-                                  color: theme.colorScheme.primary.withOpacity(
-                                    0.5,
-                                  ),
+                                  color: theme.colorScheme.primary.withOpacity(0.5),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        // Shape SVG overlay (top-right)
                         Positioned(
                           right: 8,
                           top: 8,
-                          child: SvgPicture.asset(
-                            'assets/Shape.svg',
-                            width: 44,
-                            height: 44,
-                          ),
+                          child: SvgPicture.asset('assets/Shape.svg', width: 44, height: 44),
                         ),
                       ],
                     ),
@@ -129,7 +119,7 @@ class OnboardingPage1 extends StatelessWidget {
                 child: Text(
                   'A safe space to express🌸, reflect, and heal 💙',
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium?.copyWith(
+                  style: TextStyle(
                     color: const Color.fromARGB(255, 109, 69, 136),
                     height: 1.8,
                     fontWeight: FontWeight.bold,
@@ -151,43 +141,24 @@ class OnboardingPage1 extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const OnboardingPage2(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const OnboardingPage2()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colorScheme.primary,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text('NEXT'),
-                        const SizedBox(width: 10),
-                        Container(
+                        Text('NEXT'),
+                        SizedBox(width: 10),
+                        SizedBox(
                           width: 26,
                           height: 26,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.18),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.5),
-                              width: 1,
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            size: 16,
-                            color: Colors.white,
-                          ),
+                          child: Icon(Icons.arrow_forward, size: 16),
                         ),
                       ],
                     ),
@@ -215,9 +186,7 @@ class _Dot extends StatelessWidget {
       width: active ? 22 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: active
-            ? theme.colorScheme.primary
-            : theme.textTheme.bodySmall?.color?.withOpacity(0.25),
+        color: active ? theme.colorScheme.primary : theme.textTheme.bodySmall?.color?.withOpacity(0.25),
         borderRadius: BorderRadius.circular(8),
       ),
     );
