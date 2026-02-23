@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import '../profile/profile_page.dart';
 import '../chatbot/chatbot_page.dart';
 import '../info/general_info_page.dart';
+import '../mood/mood_page.dart';
 import '../providers/theme_provider.dart';
+import '../providers/mood_provider.dart';
 import '../settings/settings_page.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -230,6 +232,18 @@ class _DashboardPageState extends State<DashboardPage> {
                   },
                 ),
 
+                const SizedBox(height: 14),
+
+                // Mood status card
+                _MoodStatusCard(
+                  isDark: isDark,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const MoodPage()),
+                    );
+                  },
+                ),
+
                 const Spacer(),
 
                 // CTA at bottom
@@ -357,6 +371,67 @@ class _SuggestionBox extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Icon(Icons.chevron_right, color: theme.colorScheme.primary),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MoodStatusCard extends StatelessWidget {
+  const _MoodStatusCard({required this.isDark, required this.onTap});
+  final bool isDark;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cardColor = isDark ? const Color(0xFF0F1720) : Colors.white;
+    final shadowColor = isDark ? Colors.black.withOpacity(0.6) : Colors.black.withOpacity(0.05);
+
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [BoxShadow(color: shadowColor, blurRadius: 12, offset: const Offset(0, 6))],
+            border: Border.all(color: Colors.purple.withOpacity(0.3), width: 1.5),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.purple, Colors.blue],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.mood, color: Colors.white),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Track Your Mood', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 4),
+                    Text('Log daily mood, stress & sleep to see your patterns.', style: theme.textTheme.bodySmall?.copyWith(color: theme.textTheme.bodySmall?.color?.withOpacity(0.8))),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Icon(Icons.chevron_right, color: Colors.purple),
             ],
           ),
         ),
