@@ -127,11 +127,13 @@ class ChatResponse {
   final String message;
   final String? sessionId;
   final Map<String, dynamic>? metadata;
+  final bool crisisFlag;
 
   ChatResponse({
     required this.message,
     this.sessionId,
     this.metadata,
+    this.crisisFlag = false,
   });
 
   factory ChatResponse.fromJson(Map<String, dynamic> json) {
@@ -139,6 +141,7 @@ class ChatResponse {
       message: json['message'] as String? ?? json['response'] as String? ?? '',
       sessionId: json['session_id'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>?,
+      crisisFlag: json['crisis_flag'] as bool? ?? false,
     );
   }
 }

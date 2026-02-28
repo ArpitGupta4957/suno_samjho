@@ -39,12 +39,12 @@
     {
       "title": "Understanding Stress in 60 Seconds",
       "url": "https://www.youtube.com/watch?v=example2",
-      "thumbnail": "https://img.youtube.com/vi/example2/maxresdefault.jpg"
+      "thumbnail": "https://img.youtube.com/vi/SE3m6CKs5oM/maxresdefault.jpg"
     },
     {
       "title": "Grounding Exercise (5-4-3-2-1)",
       "url": "https://www.youtube.com/watch?v=example3",
-      "thumbnail": "https://img.youtube.com/vi/example3/maxresdefault.jpg"
+      "thumbnail": "https://img.youtube.com/vi/SE3m6CKs5oM/maxresdefault.jpg"
     }
   ],
   "affirmations": [
@@ -53,5 +53,61 @@
     "One step at a time is okay.",
     "I deserve rest and kindness.",
     "I am learning to take better care of myself."
+  ],
+  "crisisHelplines": [
+    {
+      "country": "India",
+      "name": "iCall",
+      "phone": "+919152987821",
+      "description": "Mental health helpline by Tata Institute of Social Sciences"
+    },
+    {
+      "country": "India",
+      "name": "Vandrevala Foundation Helpline",
+      "phone": "+9102045656942",
+      "description": "24/7 mental health support"
+    },
+    {
+      "country": "India",
+      "name": "NIMHANS Helpline",
+      "phone": "+918065992222",
+      "description": "National Institute of Mental Health and Neurosciences"
+    },
+    {
+      "country": "United States",
+      "name": "988 Suicide & Crisis Lifeline",
+      "phone": "988",
+      "description": "24/7, free and confidential support"
+    },
+    {
+      "country": "United States",
+      "name": "Crisis Text Line",
+      "phone": "741741",
+      "description": "Text HOME to 741741"
+    },
+    {
+      "country": "United Kingdom",
+      "name": "Samaritans",
+      "phone": "116123",
+      "description": "24/7 support for those in distress"
+    },
+    {
+      "country": "Australia",
+      "name": "Lifeline",
+      "phone": "131114",
+      "description": "24-hour crisis support"
+    },
+    {
+      "country": "Canada",
+      "name": "Talk Suicide Canada",
+      "phone": "1-833-456-4566",
+      "description": "24/7 crisis support"
+    },
+    {
+      "country": "International",
+      "name": "Befrienders Worldwide",
+      "phone": "",
+      "description": "Find a helpline: https://www.befrienders.org/"
+    }
   ]
 }
