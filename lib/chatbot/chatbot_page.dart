@@ -3,7 +3,6 @@ import 'package:suno_samjho/services/tts_service.dart';
 import 'package:suno_samjho/services/speech_service.dart';
 import 'package:suno_samjho/services/chat_service.dart';
 import 'package:suno_samjho/providers/theme_provider.dart';
-import 'package:suno_samjho/crisis/crisis_support_page.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,10 +16,10 @@ class ChatbotPage extends StatefulWidget {
 class _ChatbotPageState extends State<ChatbotPage> {
   late TtsService _ttsService;
   final ChatService _chatService = ChatService.instance;
-  
+
   // Loading state for API calls
   bool _isLoading = false;
-  
+
   final List<Map<String, dynamic>> _messages = [
     {
       'id': const Uuid().v4(),
@@ -88,10 +87,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
+      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
     );
   }
 
@@ -106,7 +102,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
   Future<void> _sendMessage() async {
     final text = _controller.text.trim();
     if (text.isEmpty || _isLoading) return;
-    
+
     // Add user message to the list
     setState(() {
       _messages.add({
@@ -118,10 +114,10 @@ class _ChatbotPageState extends State<ChatbotPage> {
       _controller.clear();
     });
     _scrollToBottom();
-    
+
     // Set loading state
     setState(() => _isLoading = true);
-    
+
     // Create a placeholder for bot message (will be updated with API response)
     final botMessageId = const Uuid().v4();
     setState(() {
@@ -134,11 +130,11 @@ class _ChatbotPageState extends State<ChatbotPage> {
       });
     });
     _scrollToBottom();
-    
+
     try {
       // Call the FastAPI backend
       final response = await _chatService.sendMessage(message: text);
-      
+
       // Update the bot message with actual response
       final botIndex = _messages.indexWhere((m) => m['id'] == botMessageId);
       if (botIndex != -1) {
@@ -152,7 +148,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
       final botIndex = _messages.indexWhere((m) => m['id'] == botMessageId);
       if (botIndex != -1) {
         setState(() {
-          _messages[botIndex]['text'] = 'Sorry, I couldn\'t get a response. Please try again.';
+          _messages[botIndex]['text'] =
+              'Sorry, I couldn\'t get a response. Please try again.';
           _messages[botIndex]['isLoading'] = false;
           _messages[botIndex]['isError'] = true;
         });
@@ -186,7 +183,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -225,9 +222,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, _) {
               return IconButton(
-                tooltip: themeProvider.isDarkMode ? 'Switch to light' : 'Switch to dark',
+                tooltip: themeProvider.isDarkMode
+                    ? 'Switch to light'
+                    : 'Switch to dark',
                 icon: Icon(
-                  themeProvider.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
+                  themeProvider.isDarkMode
+                      ? Icons.wb_sunny_outlined
+                      : Icons.nightlight_round,
                 ),
                 onPressed: () => themeProvider.toggleTheme(),
                 color: theme.colorScheme.primary,
@@ -242,7 +243,10 @@ class _ChatbotPageState extends State<ChatbotPage> {
             Expanded(
               child: ListView.builder(
                 controller: _scrollController,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 16,
+                ),
                 itemCount: _messages.length,
                 itemBuilder: (context, i) {
                   final msg = _messages[i];
@@ -250,7 +254,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   return Padding(
                     padding: EdgeInsets.only(top: i == 0 ? 0 : 8, bottom: 4),
                     child: Row(
-                      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                      mainAxisAlignment: isMe
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.start,
                       children: [
                         if (!isMe) _avatarSmall(theme),
                         Flexible(
@@ -284,21 +290,37 @@ class _ChatbotPageState extends State<ChatbotPage> {
       child: CircleAvatar(
         radius: 16,
         backgroundColor: theme.colorScheme.primary.withOpacity(0.15),
-        child: Icon(Icons.smart_toy, color: theme.colorScheme.primary, size: 18),
+        child: Icon(
+          Icons.smart_toy,
+          color: theme.colorScheme.primary,
+          size: 18,
+        ),
       ),
     );
   }
 
-  Widget _bubble(String text, String time, String messageId, bool isMe, ThemeData theme, {bool isLoading = false, bool isError = false}) {
+  Widget _bubble(
+    String text,
+    String time,
+    String messageId,
+    bool isMe,
+    ThemeData theme, {
+    bool isLoading = false,
+    bool isError = false,
+  }) {
     final bg = isMe
         ? theme.colorScheme.secondary
-        : (theme.brightness == Brightness.dark ? Colors.grey[800] : Colors.white);
+        : (theme.brightness == Brightness.dark
+              ? Colors.grey[800]
+              : Colors.white);
     final color = isMe
         ? Colors.white
-        : (theme.brightness == Brightness.dark ? Colors.white70 : Colors.black87);
+        : (theme.brightness == Brightness.dark
+              ? Colors.white70
+              : Colors.black87);
     final align = isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
     final errorColor = isError ? Colors.red : null;
-    
+
     return Column(
       crossAxisAlignment: align,
       children: [
@@ -339,11 +361,21 @@ class _ChatbotPageState extends State<ChatbotPage> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text('Thinking...', style: TextStyle(color: color, fontSize: 15)),
+                    Text(
+                      'Thinking...',
+                      style: TextStyle(color: color, fontSize: 15),
+                    ),
                   ],
                 )
               else
-                Text(text, style: TextStyle(color: errorColor ?? color, fontSize: 15, height: 1.35)),
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: errorColor ?? color,
+                    fontSize: 15,
+                    height: 1.35,
+                  ),
+                ),
               if (!isMe && !isLoading) ...[
                 const SizedBox(height: 8),
                 _buildTtsControls(messageId, theme, color),
@@ -354,7 +386,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
         const SizedBox(height: 4),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: Text(time, style: TextStyle(fontSize: 11, color: theme.textTheme.bodySmall?.color)),
+          child: Text(
+            time,
+            style: TextStyle(
+              fontSize: 11,
+              color: theme.textTheme.bodySmall?.color,
+            ),
+          ),
         ),
       ],
     );
@@ -373,7 +411,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
               await _ttsService.resume();
               setState(() {});
             } else {
-              final msgIndex = _messages.indexWhere((m) => m['id'] == messageId);
+              final msgIndex = _messages.indexWhere(
+                (m) => m['id'] == messageId,
+              );
               if (msgIndex != -1) {
                 await _ttsService.speak(_messages[msgIndex]['text'], messageId);
                 setState(() {});
@@ -382,8 +422,15 @@ class _ChatbotPageState extends State<ChatbotPage> {
           },
           child: Container(
             padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.transparent),
-            child: Icon(_ttsService.isPlaying(messageId) ? Icons.pause : Icons.play_arrow, size: 18, color: color),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+            ),
+            child: Icon(
+              _ttsService.isPlaying(messageId) ? Icons.pause : Icons.play_arrow,
+              size: 18,
+              color: color,
+            ),
           ),
         ),
         const SizedBox(width: 4),
@@ -396,7 +443,10 @@ class _ChatbotPageState extends State<ChatbotPage> {
           },
           child: Container(
             padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.transparent),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+            ),
             child: Icon(Icons.stop, size: 18, color: color),
           ),
         ),
@@ -411,14 +461,23 @@ class _ChatbotPageState extends State<ChatbotPage> {
       color: theme.scaffoldBackgroundColor,
       child: Row(
         children: [
-          IconButton(icon: Icon(Icons.add, color: theme.colorScheme.primary), onPressed: () {}),
+          IconButton(
+            icon: Icon(Icons.add, color: theme.colorScheme.primary),
+            onPressed: () {},
+          ),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
                 color: isDark ? Colors.grey[900] : Colors.white,
                 borderRadius: BorderRadius.circular(24),
-                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 6, offset: const Offset(0, 2))],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.03),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
@@ -427,8 +486,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
                       controller: _controller,
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => _sendMessage(),
-                      decoration: const InputDecoration.collapsed(hintText: 'Type a message...'),
-                      style: TextStyle(color: theme.textTheme.bodyMedium?.color, fontSize: 15),
+                      decoration: const InputDecoration.collapsed(
+                        hintText: 'Type a message...',
+                      ),
+                      style: TextStyle(
+                        color: theme.textTheme.bodyMedium?.color,
+                        fontSize: 15,
+                      ),
                       minLines: 1,
                       maxLines: 4,
                       enabled: !_isLoading,
@@ -439,8 +503,14 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     onTap: _isLoading ? null : _sendMessage,
                     child: CircleAvatar(
                       radius: 18,
-                      backgroundColor: _isLoading ? Colors.grey : theme.colorScheme.primary,
-                      child: const Icon(Icons.send, color: Colors.white, size: 18),
+                      backgroundColor: _isLoading
+                          ? Colors.grey
+                          : theme.colorScheme.primary,
+                      child: const Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                     ),
                   ),
                 ],
@@ -454,10 +524,16 @@ class _ChatbotPageState extends State<ChatbotPage> {
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: _isListening ? Colors.red.withOpacity(0.15) : Colors.transparent,
+                color: _isListening
+                    ? Colors.red.withOpacity(0.15)
+                    : Colors.transparent,
                 shape: BoxShape.circle,
               ),
-              child: Icon(_isListening ? Icons.mic : Icons.mic_none, color: _isListening ? Colors.red : theme.colorScheme.primary, size: 26),
+              child: Icon(
+                _isListening ? Icons.mic : Icons.mic_none,
+                color: _isListening ? Colors.red : theme.colorScheme.primary,
+                size: 26,
+              ),
             ),
           ),
         ],

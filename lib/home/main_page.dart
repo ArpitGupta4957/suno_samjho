@@ -6,8 +6,6 @@ import '../chatbot/chatbot_page.dart';
 import '../info/general_info_page.dart';
 import '../mood/mood_page.dart';
 import '../providers/theme_provider.dart';
-import '../providers/mood_provider.dart';
-import '../settings/settings_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, this.userName = 'Name'});
@@ -64,7 +62,9 @@ class _DashboardPageState extends State<DashboardPage> {
                           Text(
                             'Good day 👋',
                             style: TextStyle(
-                              color: theme.textTheme.bodySmall?.color ?? Colors.grey[600],
+                              color:
+                                  theme.textTheme.bodySmall?.color ??
+                                  Colors.grey[600],
                               fontSize: 14 * textScale,
                             ),
                           ),
@@ -75,7 +75,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                 'Hi, ',
                                 style: TextStyle(
                                   fontSize: 18 * textScale,
-                                  color: theme.textTheme.bodyMedium?.color ?? Colors.grey[800],
+                                  color:
+                                      theme.textTheme.bodyMedium?.color ??
+                                      Colors.grey[800],
                                 ),
                               ),
                               Text(
@@ -83,7 +85,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                 style: TextStyle(
                                   fontSize: 20 * textScale,
                                   fontWeight: FontWeight.bold,
-                                  color: theme.textTheme.bodyLarge?.color ?? Colors.black87,
+                                  color:
+                                      theme.textTheme.bodyLarge?.color ??
+                                      Colors.black87,
                                 ),
                               ),
                             ],
@@ -95,7 +99,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     Consumer<ThemeProvider>(
                       builder: (context, themeProvider, _) {
                         return IconButton(
-                          tooltip: themeProvider.isDarkMode ? 'Switch to light' : 'Switch to dark',
+                          tooltip: themeProvider.isDarkMode
+                              ? 'Switch to light'
+                              : 'Switch to dark',
                           icon: Icon(
                             themeProvider.isDarkMode
                                 ? Icons.wb_sunny_outlined
@@ -153,10 +159,38 @@ class _DashboardPageState extends State<DashboardPage> {
                   spacing: 12,
                   runSpacing: 12,
                   children: [
-                    _buildStatCard(context, 'Health', '${(_targetHealth * 100).toStringAsFixed(0)}%', Icons.favorite, Colors.pinkAccent, isSmall),
-                    _buildStatCard(context, 'Sessions', '24', Icons.schedule, Colors.orangeAccent, isSmall),
-                    _buildStatCard(context, 'Avg Time', '30m', Icons.timer, Colors.teal, isSmall),
-                    _buildStatCard(context, 'Total Time', _totalTime, Icons.history, Colors.indigo, isSmall),
+                    _buildStatCard(
+                      context,
+                      'Health',
+                      '${(_targetHealth * 100).toStringAsFixed(0)}%',
+                      Icons.favorite,
+                      Colors.pinkAccent,
+                      isSmall,
+                    ),
+                    _buildStatCard(
+                      context,
+                      'Sessions',
+                      '24',
+                      Icons.schedule,
+                      Colors.orangeAccent,
+                      isSmall,
+                    ),
+                    _buildStatCard(
+                      context,
+                      'Avg Time',
+                      '30m',
+                      Icons.timer,
+                      Colors.teal,
+                      isSmall,
+                    ),
+                    _buildStatCard(
+                      context,
+                      'Total Time',
+                      _totalTime,
+                      Icons.history,
+                      Colors.indigo,
+                      isSmall,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 18),
@@ -170,7 +204,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
-                        color: isDark ? Colors.black.withOpacity(0.6) : Colors.black.withOpacity(0.04),
+                        color: isDark
+                            ? Colors.black.withOpacity(0.6)
+                            : Colors.black.withOpacity(0.04),
                         blurRadius: 12,
                         offset: const Offset(0, 6),
                       ),
@@ -181,7 +217,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     children: [
                       Text(
                         'Weekly Progress',
-                        style: TextStyle(fontSize: 16 * textScale, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 16 * textScale,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       TweenAnimationBuilder<double>(
@@ -199,16 +238,24 @@ class _DashboardPageState extends State<DashboardPage> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '${(value * 100).toStringAsFixed(0)}% of goal',
-                                    style: const TextStyle(fontWeight: FontWeight.w600),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   ElevatedButton(
                                     onPressed: () {},
-                                    style: ElevatedButton.styleFrom(backgroundColor: theme.primaryColor),
-                                    child: const Text('Continue', style: TextStyle(color: Colors.white)),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: theme.primaryColor,
+                                    ),
+                                    child: const Text(
+                                      'Continue',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -227,7 +274,9 @@ class _DashboardPageState extends State<DashboardPage> {
                   isDark: isDark,
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const GeneralInfoPage()),
+                      MaterialPageRoute(
+                        builder: (_) => const GeneralInfoPage(),
+                      ),
                     );
                   },
                 ),
@@ -238,9 +287,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 _MoodStatusCard(
                   isDark: isDark,
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const MoodPage()),
-                    );
+                    Navigator.of(
+                      context,
+                    ).push(MaterialPageRoute(builder: (_) => const MoodPage()));
                   },
                 ),
 
@@ -256,13 +305,21 @@ class _DashboardPageState extends State<DashboardPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: isSmall ? 14 : 16),
+                      padding: EdgeInsets.symmetric(
+                        vertical: isSmall ? 14 : 16,
+                      ),
                       backgroundColor: theme.primaryColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     child: Text(
                       'TALK TO SAMJHO',
-                      style: TextStyle(fontSize: isSmall ? 16 : 18, fontWeight: FontWeight.w700, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: isSmall ? 16 : 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -283,14 +340,29 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  Widget _buildStatCard(BuildContext context, String title, String value, IconData icon, Color color, bool isSmall) {
-    final width = (MediaQuery.of(context).size.width - (isSmall ? 32 : 64) - 12) / (isSmall ? 2 : 4);
+  Widget _buildStatCard(
+    BuildContext context,
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+    bool isSmall,
+  ) {
+    final width =
+        (MediaQuery.of(context).size.width - (isSmall ? 32 : 64) - 12) /
+        (isSmall ? 2 : 4);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final cardColor = isDark ? const Color(0xFF0F1720) : theme.cardColor;
-    final shadowColor = isDark ? Colors.black.withOpacity(0.45) : Colors.black.withOpacity(0.03);
-    final titleColor = isDark ? Colors.white70 : (theme.textTheme.bodySmall?.color ?? Colors.grey[700]);
-    final valueColor = isDark ? Colors.white : (theme.textTheme.bodyLarge?.color ?? Colors.black87);
+    final shadowColor = isDark
+        ? Colors.black.withOpacity(0.45)
+        : Colors.black.withOpacity(0.03);
+    final titleColor = isDark
+        ? Colors.white70
+        : (theme.textTheme.bodySmall?.color ?? Colors.grey[700]);
+    final valueColor = isDark
+        ? Colors.white
+        : (theme.textTheme.bodyLarge?.color ?? Colors.black87);
     final iconBg = isDark ? color.withOpacity(0.22) : color.withOpacity(0.12);
 
     return Container(
@@ -299,7 +371,13 @@ class _DashboardPageState extends State<DashboardPage> {
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: shadowColor, blurRadius: 8, offset: const Offset(0, 6))],
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 8,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -313,9 +391,22 @@ class _DashboardPageState extends State<DashboardPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontSize: isSmall ? 12 : 13, color: titleColor)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: isSmall ? 12 : 13,
+                    color: titleColor,
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text(value, style: TextStyle(fontSize: isSmall ? 14 : 16, fontWeight: FontWeight.w700, color: valueColor)),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: isSmall ? 14 : 16,
+                    fontWeight: FontWeight.w700,
+                    color: valueColor,
+                  ),
+                ),
               ],
             ),
           ),
@@ -334,7 +425,9 @@ class _SuggestionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cardColor = isDark ? const Color(0xFF0F1720) : Colors.white;
-    final shadowColor = isDark ? Colors.black.withOpacity(0.6) : Colors.black.withOpacity(0.05);
+    final shadowColor = isDark
+        ? Colors.black.withOpacity(0.6)
+        : Colors.black.withOpacity(0.05);
 
     return Material(
       color: Colors.transparent,
@@ -348,24 +441,51 @@ class _SuggestionBox extends StatelessWidget {
           decoration: BoxDecoration(
             color: cardColor,
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [BoxShadow(color: shadowColor, blurRadius: 12, offset: const Offset(0, 6))],
-            border: Border.all(color: theme.colorScheme.primary.withOpacity(0.18), width: 1.5),
+            boxShadow: [
+              BoxShadow(
+                color: shadowColor,
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+            border: Border.all(
+              color: theme.colorScheme.primary.withOpacity(0.18),
+              width: 1.5,
+            ),
           ),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(color: theme.colorScheme.primary.withOpacity(0.12), shape: BoxShape.circle),
-                child: Icon(Icons.tips_and_updates, color: theme.colorScheme.primary),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withOpacity(0.12),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.tips_and_updates,
+                  color: theme.colorScheme.primary,
+                ),
               ),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Suggestions for You', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                    Text(
+                      'Suggestions for You',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Real-time tips and quick activities to feel better now.', style: theme.textTheme.bodySmall?.copyWith(color: theme.textTheme.bodySmall?.color?.withOpacity(0.8))),
+                    Text(
+                      'Real-time tips and quick activities to feel better now.',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.textTheme.bodySmall?.color?.withOpacity(
+                          0.8,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -388,7 +508,9 @@ class _MoodStatusCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cardColor = isDark ? const Color(0xFF0F1720) : Colors.white;
-    final shadowColor = isDark ? Colors.black.withOpacity(0.6) : Colors.black.withOpacity(0.05);
+    final shadowColor = isDark
+        ? Colors.black.withOpacity(0.6)
+        : Colors.black.withOpacity(0.05);
 
     return Material(
       color: Colors.transparent,
@@ -402,8 +524,17 @@ class _MoodStatusCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: cardColor,
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [BoxShadow(color: shadowColor, blurRadius: 12, offset: const Offset(0, 6))],
-            border: Border.all(color: Colors.purple.withOpacity(0.3), width: 1.5),
+            boxShadow: [
+              BoxShadow(
+                color: shadowColor,
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+            border: Border.all(
+              color: Colors.purple.withOpacity(0.3),
+              width: 1.5,
+            ),
           ),
           child: Row(
             children: [
@@ -424,9 +555,21 @@ class _MoodStatusCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Track Your Mood', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                    Text(
+                      'Track Your Mood',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Log daily mood, stress & sleep to see your patterns.', style: theme.textTheme.bodySmall?.copyWith(color: theme.textTheme.bodySmall?.color?.withOpacity(0.8))),
+                    Text(
+                      'Log daily mood, stress & sleep to see your patterns.',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.textTheme.bodySmall?.color?.withOpacity(
+                          0.8,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

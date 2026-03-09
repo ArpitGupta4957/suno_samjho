@@ -53,7 +53,10 @@ class _MoodPageState extends State<MoodPage> {
         backgroundColor: isDark ? AppTheme.getDarkCardColor() : Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.black87),
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black87,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
@@ -72,14 +75,17 @@ class _MoodPageState extends State<MoodPage> {
           }
 
           return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: isSmall ? 16 : 24, vertical: 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: isSmall ? 16 : 24,
+              vertical: 16,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Today's mood entry section
                 _buildSectionTitle('How are you feeling today?', isDark),
                 const SizedBox(height: 16),
-                
+
                 // Mood selection
                 _buildMoodSelector(isDark),
                 const SizedBox(height: 24),
@@ -109,7 +115,7 @@ class _MoodPageState extends State<MoodPage> {
                 // Analytics section
                 _buildSectionTitle('Your Analytics', isDark),
                 const SizedBox(height: 16),
-                
+
                 // Weekly averages
                 _buildWeeklyAveragesCard(moodProvider, isDark, isSmall),
                 const SizedBox(height: 16),
@@ -165,24 +171,21 @@ class _MoodPageState extends State<MoodPage> {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isSelected
-                      ? Colors.blue
-                      : Colors.transparent,
+                  color: isSelected ? Colors.blue : Colors.transparent,
                   width: 2,
                 ),
               ),
               child: Column(
                 children: [
-                  Text(
-                    option['emoji'],
-                    style: const TextStyle(fontSize: 28),
-                  ),
+                  Text(option['emoji'], style: const TextStyle(fontSize: 28)),
                   const SizedBox(height: 4),
                   Text(
                     option['label'],
                     style: TextStyle(
                       fontSize: 10,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.normal,
                       color: isSelected
                           ? (isDark ? Colors.white : Colors.blue[700])
                           : (isDark ? Colors.white70 : Colors.grey[600]),
@@ -214,7 +217,10 @@ class _MoodPageState extends State<MoodPage> {
             children: [
               const Text('Low', style: TextStyle(color: Colors.green)),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: _getStressColor(_stressLevel.toInt()),
                   borderRadius: BorderRadius.circular(20),
@@ -284,7 +290,7 @@ class _MoodPageState extends State<MoodPage> {
           Column(
             children: [
               Text(
-                '${_sleepHours.toStringAsFixed(1)}',
+                _sleepHours.toStringAsFixed(1),
                 style: TextStyle(
                   fontSize: isSmall ? 32 : 40,
                   fontWeight: FontWeight.bold,
@@ -332,7 +338,9 @@ class _MoodPageState extends State<MoodPage> {
         style: TextStyle(color: isDark ? Colors.white : Colors.black87),
         decoration: InputDecoration(
           hintText: 'How was your day? Any thoughts...',
-          hintStyle: TextStyle(color: isDark ? Colors.white50 : Colors.grey[500]),
+          hintStyle: TextStyle(
+            color: isDark ? Colors.white50 : Colors.grey[500],
+          ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
         ),
@@ -340,7 +348,11 @@ class _MoodPageState extends State<MoodPage> {
     );
   }
 
-  Widget _buildSaveButton(MoodProvider moodProvider, bool isDark, bool isSmall) {
+  Widget _buildSaveButton(
+    MoodProvider moodProvider,
+    bool isDark,
+    bool isSmall,
+  ) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -398,7 +410,11 @@ class _MoodPageState extends State<MoodPage> {
     );
   }
 
-  Widget _buildWeeklyAveragesCard(MoodProvider moodProvider, bool isDark, bool isSmall) {
+  Widget _buildWeeklyAveragesCard(
+    MoodProvider moodProvider,
+    bool isDark,
+    bool isSmall,
+  ) {
     final averages = moodProvider.weeklyAverages;
     final avgMood = averages['mood'] ?? 0.0;
     final avgStress = averages['stress'] ?? 0.0;
@@ -463,7 +479,12 @@ class _MoodPageState extends State<MoodPage> {
     );
   }
 
-  Widget _buildAverageItem(String label, String value, String emoji, bool isDark) {
+  Widget _buildAverageItem(
+    String label,
+    String value,
+    String emoji,
+    bool isDark,
+  ) {
     return Column(
       children: [
         Text(emoji, style: const TextStyle(fontSize: 24)),
@@ -495,7 +516,11 @@ class _MoodPageState extends State<MoodPage> {
     return '😢';
   }
 
-  Widget _buildMoodTrendChart(MoodProvider moodProvider, bool isDark, bool isSmall) {
+  Widget _buildMoodTrendChart(
+    MoodProvider moodProvider,
+    bool isDark,
+    bool isSmall,
+  ) {
     final entries = moodProvider.getRecentEntries();
 
     if (entries.isEmpty) {
@@ -558,7 +583,8 @@ class _MoodPageState extends State<MoodPage> {
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
-                        if (value.toInt() >= entries.length) return const Text('');
+                        if (value.toInt() >= entries.length)
+                          return const Text('');
                         final date = entries[value.toInt()].date;
                         return Text(
                           '${date.day}/${date.month}',
@@ -570,8 +596,12 @@ class _MoodPageState extends State<MoodPage> {
                       },
                     ),
                   ),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                 ),
                 borderData: FlBorderData(show: false),
                 minX: 0,
@@ -615,7 +645,11 @@ class _MoodPageState extends State<MoodPage> {
     );
   }
 
-  Widget _buildSleepPatternChart(MoodProvider moodProvider, bool isDark, bool isSmall) {
+  Widget _buildSleepPatternChart(
+    MoodProvider moodProvider,
+    bool isDark,
+    bool isSmall,
+  ) {
     final entries = moodProvider.getRecentEntries();
 
     if (entries.isEmpty) {
@@ -678,7 +712,8 @@ class _MoodPageState extends State<MoodPage> {
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
-                        if (value.toInt() >= entries.length) return const Text('');
+                        if (value.toInt() >= entries.length)
+                          return const Text('');
                         final date = entries[value.toInt()].date;
                         return Text(
                           '${date.day}/${date.month}',
@@ -690,8 +725,12 @@ class _MoodPageState extends State<MoodPage> {
                       },
                     ),
                   ),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                 ),
                 borderData: FlBorderData(show: false),
                 maxY: 12,
