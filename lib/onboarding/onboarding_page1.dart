@@ -10,7 +10,6 @@ class OnboardingPage1 extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isSmall = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
       backgroundColor: isDark ? AppTheme.getDarkCardColor() : Colors.white,
@@ -27,7 +26,9 @@ class OnboardingPage1 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const OnboardingPage2()),
+                        MaterialPageRoute(
+                          builder: (_) => const OnboardingPage2(),
+                        ),
                       );
                     },
                     child: Text(
@@ -72,12 +73,14 @@ class OnboardingPage1 extends StatelessWidget {
                       color: isDark ? const Color(0xFF0F1720) : Colors.white,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: theme.colorScheme.primary.withOpacity(0.35),
+                        color: theme.colorScheme.primary.withValues(alpha: 0.35),
                         width: 2,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: isDark ? Colors.black.withOpacity(0.45) : Colors.black.withOpacity(0.06),
+                          color: isDark
+                              ? Colors.black.withValues(alpha: 0.45)
+                              : Colors.black.withValues(alpha: 0.06),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -95,7 +98,9 @@ class OnboardingPage1 extends StatelessWidget {
                                 child: Icon(
                                   Icons.image_outlined,
                                   size: 120,
-                                  color: theme.colorScheme.primary.withOpacity(0.5),
+                                  color: theme.colorScheme.primary.withValues(
+                                    alpha: 0.5,
+                                  ),
                                 ),
                               ),
                             ),
@@ -104,7 +109,11 @@ class OnboardingPage1 extends StatelessWidget {
                         Positioned(
                           right: 8,
                           top: 8,
-                          child: SvgPicture.asset('assets/Shape.svg', width: 44, height: 44),
+                          child: SvgPicture.asset(
+                            'assets/Shape.svg',
+                            width: 44,
+                            height: 44,
+                          ),
                         ),
                       ],
                     ),
@@ -141,14 +150,21 @@ class OnboardingPage1 extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const OnboardingPage2()),
+                        MaterialPageRoute(
+                          builder: (_) => const OnboardingPage2(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colorScheme.primary,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
@@ -186,7 +202,9 @@ class _Dot extends StatelessWidget {
       width: active ? 22 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: active ? theme.colorScheme.primary : theme.textTheme.bodySmall?.color?.withOpacity(0.25),
+        color: active
+            ? theme.colorScheme.primary
+            : theme.textTheme.bodySmall?.color?.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(8),
       ),
     );

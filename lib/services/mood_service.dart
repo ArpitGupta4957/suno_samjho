@@ -16,7 +16,7 @@ class MoodService {
           .select()
           .single();
 
-      return MoodEntry.fromJson(response as Map<String, dynamic>);
+      return MoodEntry.fromJson(response);
     } catch (e) {
       throw Exception('Failed to add mood entry: $e');
     }
@@ -29,8 +29,6 @@ class MoodService {
           .select()
           .eq('user_id', userId)
           .order('date', ascending: false);
-
-      if (response == null) return [];
 
       return (response as List<dynamic>)
           .map((json) => MoodEntry.fromJson(json as Map<String, dynamic>))
@@ -53,8 +51,6 @@ class MoodService {
           .gte('date', startDate.toIso8601String())
           .lte('date', endDate.toIso8601String())
           .order('date', ascending: true);
-
-      if (response == null) return [];
 
       return (response as List<dynamic>)
           .map((json) => MoodEntry.fromJson(json as Map<String, dynamic>))
@@ -149,7 +145,7 @@ class MoodService {
 
       if (response == null) return null;
 
-      return MoodEntry.fromJson(response as Map<String, dynamic>);
+      return MoodEntry.fromJson(response);
     } catch (e) {
       return null;
     }

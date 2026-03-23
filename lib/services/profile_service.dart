@@ -17,9 +17,7 @@ class ProfileService {
           .eq('id', userId)
           .single();
 
-      if (response == null) return null;
-
-      return UserProfile.fromJson(response as Map<String, dynamic>);
+      return UserProfile.fromJson(response);
     } on PostgrestException catch (e) {
       // Handle specific Supabase errors
       if (e.code == 'PGRST116') {
@@ -48,7 +46,7 @@ class ProfileService {
           .select()
           .single();
 
-      return UserProfile.fromJson(response as Map<String, dynamic>);
+      return UserProfile.fromJson(response);
     } catch (e) {
       throw Exception('Failed to update profile: $e');
     }
@@ -69,7 +67,7 @@ class ProfileService {
           .select()
           .single();
 
-      return UserProfile.fromJson(response as Map<String, dynamic>);
+      return UserProfile.fromJson(response);
     } catch (e) {
       throw Exception('Failed to create profile: $e');
     }

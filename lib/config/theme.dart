@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Theme mode enum for light, dark, and system options
-enum AppThemeMode {
-  light,
-  dark,
-  system,
-}
+enum AppThemeMode { light, dark, system }
 
 /// App-wide theme constants
 class AppTheme {
@@ -41,12 +37,10 @@ class AppTheme {
         foregroundColor: Colors.black87,
         elevation: 0,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: _lightCardColor,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -66,29 +60,25 @@ class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: _lightPrimaryColor,
-        ),
+        style: TextButton.styleFrom(foregroundColor: _lightPrimaryColor),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFFD9D9D9).withOpacity(0.15),
+        fillColor: const Color(0xFFD9D9D9).withValues(alpha: 0.15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const Color(0xFFD9D9D9),
+          borderSide: const BorderSide(color: Color(0xFFD9D9D9)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const Color(0xFFD9D9D9),
+          borderSide: const BorderSide(color: Color(0xFFD9D9D9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: _lightPrimaryColor, width: 2),
         ),
       ),
-      iconTheme: const IconThemeData(
-        color: Colors.black54,
-      ),
+      iconTheme: const IconThemeData(color: Colors.black54),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(color: Colors.black87),
         bodyMedium: TextStyle(color: Colors.black87),
@@ -115,12 +105,10 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: _darkCardColor,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -140,29 +128,25 @@ class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: _darkPrimaryColor,
-        ),
+        style: TextButton.styleFrom(foregroundColor: _darkPrimaryColor),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.grey[900],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: Colors.grey[800]!,
+          borderSide: BorderSide(color: Colors.grey[800]!),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: Colors.grey[800]!,
+          borderSide: BorderSide(color: Colors.grey[800]!),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: _darkPrimaryColor, width: 2),
         ),
       ),
-      iconTheme: const IconThemeData(
-        color: Colors.white70,
-      ),
+      iconTheme: const IconThemeData(color: Colors.white70),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(color: Colors.white),
         bodyMedium: TextStyle(color: Colors.white),

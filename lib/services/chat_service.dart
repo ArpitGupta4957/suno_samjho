@@ -1,22 +1,31 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../config/samjho_system_prompt.dart';
 
-/// Service for handling chatbot API communication with FastAPI backend.
+/// Service for handling chatbot API communication with Google Generative AI (Gemini).
 ///
-/// This service sends user messages to the FastAPI endpoint and receives
-/// bot responses. It follows the same error handling pattern as AuthService.
+/// This service sends user messages to the Gemini API and receives responses
+/// from "Samjho", the compassionate mental health support companion.
 class ChatService {
   ChatService._();
   static final ChatService instance = ChatService._();
 
-  // Base URL for FastAPI - loaded from environment variables
-  String get _baseUrl => dotenv.env['FASTAPI_URL'] ?? 'http://localhost:8000';
+  // Gemini API configuration
+  String get _apiKey => dotenv.env['GEMINI_API_KEY'] ?? '';
+  String get _model => dotenv.env['GEMINI_MODEL'] ?? 'gemini-2.5-flash';
 
-  /// Sends a message to the FastAPI chatbot endpoint and returns the response.
+  // Gemini API endpoint
+  static const String _baseUrl =
+      'https://generativelanguage.googleapis.com/v1beta/models';
+
+  // Track conversation history for multi-turn context
+  final List<Map<String, dynamic>> _conversationHistory = [];
+
+  /// Sends a message to the Gemini API and returns the response.
   ///
   /// [message] - The user's input message
-  /// [context] - Optional conversation context for multi-turn conversations
+  /// [context] - Optional conversation context (currently uses internal history)
   ///
   /// Returns a [ChatResponse] containing the bot's reply or throws an exception on failure.
   Future<ChatResponse> sendMessage({
@@ -24,102 +33,158 @@ class ChatService {
     List<Map<String, String>>? context,
   }) async {
     try {
-      final uri = Uri.parse('$_baseUrl/chat');
-      
-      // Prepare the request body
-      final body = json.encode({
-        'message': message,
-        if (context != null) 'context': context,
+      // Add user message to conversation history
+      _conversationHistory.add({
+        'role': 'user',
+        'parts': [
+          {'text': message},
+        ],
       });
 
-      final response = await http.post(
-        uri,
-        headers: {
-          'Content-Type': 'application/json',
-          // Add authorization header if needed
-          // 'Authorization': 'Bearer $token',
+      // Build request to Gemini API
+      final uri = Uri.parse('$_baseUrl/$_model:generateContent?key=$_apiKey');
+
+      // Prepare messages for the API
+      final List<Map<String, dynamic>> contents = [];
+
+      // Add system prompt instructions (prepend to first call)
+      if (_conversationHistory.length == 1) {
+        contents.add({
+          'role': 'user',
+          'parts': [
+            {
+              'text':
+                  'You are Samjho. ' +
+                  SamjhoSystemPrompt.mainPrompt
+                      .replaceAll('\n', ' ')
+                      .replaceAll('  ', ' ')
+                      .trim(),
+            },
+          ],
+        });
+        contents.add({
+          'role': 'model',
+          'parts': [
+            {
+              'text':
+                  'I understand. I am Samjho, a compassionate mental health support companion. I am ready to listen and support you with warmth and empathy. 💙',
+            },
+          ],
+        });
+      }
+
+      // Add conversation history
+      for (final msg in _conversationHistory) {
+        contents.add(msg);
+      }
+
+      final requestBody = {
+        'contents': contents,
+        'generationConfig': {
+          'temperature': 0.7,
+          'topP': 0.95,
+          'maxOutputTokens': 250,
         },
-        body: body,
-      ).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          throw Exception('Request timed out. Please check your connection.');
-        },
-      );
+      };
+
+      final response = await http
+          .post(
+            uri,
+            headers: {'Content-Type': 'application/json'},
+            body: json.encode(requestBody),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception(
+                'Request timed out. Please check your internet connection.',
+              );
+            },
+          );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return ChatResponse.fromJson(data);
+
+        // Extract the bot response
+        final candidates = data['candidates'] as List?;
+        if (candidates == null || candidates.isEmpty) {
+          throw Exception('No response from Gemini API.');
+        }
+
+        final firstCandidate = candidates[0] as Map<String, dynamic>;
+        final content = firstCandidate['content'] as Map<String, dynamic>?;
+        if (content == null) {
+          throw Exception('Invalid response format from Gemini API.');
+        }
+
+        final parts = content['parts'] as List?;
+        if (parts == null || parts.isEmpty) {
+          throw Exception('No text in Gemini response.');
+        }
+
+        final botMessage = (parts[0] as Map<String, dynamic>)['text'] as String;
+
+        // Add bot response to history
+        _conversationHistory.add({
+          'role': 'model',
+          'parts': [
+            {'text': botMessage},
+          ],
+        });
+
+        return ChatResponse(
+          message: botMessage,
+          crisisFlag: _checkCrisisKeywords(message),
+        );
+      } else if (response.statusCode == 401) {
+        throw Exception(
+          'Authentication failed. Please check your Gemini API key.',
+        );
+      } else if (response.statusCode == 429) {
+        throw Exception(
+          'Too many requests. Please wait a moment and try again.',
+        );
       } else if (response.statusCode >= 500) {
-        throw Exception('Server error. Please try again later.');
-      } else if (response.statusCode == 404) {
-        throw Exception('Chat service not found. Please check the API URL.');
+        throw Exception('Gemini API server error. Please try again later.');
       } else {
         final errorData = json.decode(response.body);
-        throw Exception(errorData['detail'] ?? 'Failed to get response from chat service.');
+        final error = errorData['error'] as Map<String, dynamic>?;
+        throw Exception(
+          error?['message'] ?? 'Failed to get response from Gemini.',
+        );
       }
     } on FormatException {
-      throw Exception('Invalid response format from server.');
+      throw Exception('Invalid response format from Gemini API.');
     } catch (e) {
       // Re-throw if it's already our exception
       if (e.toString().contains('Exception:')) {
         rethrow;
       }
-      // Handle network errors
-      print('Network error during chat: $e');
-      throw Exception('Unable to connect to chat service. Please check your internet connection.');
+      print('Error in chat service: $e');
+      throw Exception(
+        'Unable to connect to the chat service. Please check your internet connection.',
+      );
     }
   }
 
-  /// Streams responses from the FastAPI endpoint (for streaming mode).
-  ///
-  /// This is an alternative to polling - yields chunks of the response as they arrive.
-  Stream<String> streamMessage({
-    required String message,
-    List<Map<String, String>>? context,
-  }) async* {
-    try {
-      final uri = Uri.parse('$_baseUrl/chat/stream');
-      
-      final body = json.encode({
-        'message': message,
-        if (context != null) 'context': context,
-      });
-
-      final client = http.Client();
-      final request = http.Request('POST', uri)
-        ..headers['Content-Type'] = 'application/json'
-        ..body = body;
-
-      final response = await client.send(request);
-
-      if (response.statusCode == 200) {
-        await for (final chunk in response.stream.transform(utf8.decoder)) {
-          yield chunk;
-        }
-      } else if (response.statusCode >= 500) {
-        throw Exception('Server error. Please try again later.');
-      } else {
-        throw Exception('Failed to get streaming response.');
+  /// Checks if the message contains crisis-related keywords
+  bool _checkCrisisKeywords(String message) {
+    final lowerMessage = message.toLowerCase();
+    for (final keyword in SamjhoSystemPrompt.safetyConcernKeywords) {
+      if (lowerMessage.contains(keyword)) {
+        return true;
       }
-    } catch (e) {
-      if (e.toString().contains('Exception:')) {
-        rethrow;
-      }
-      throw Exception('Unable to connect to streaming service. Please check your internet connection.');
     }
+    return false;
   }
 
-  /// Checks if the FastAPI service is available and healthy.
-  Future<bool> checkHealth() async {
-    try {
-      final uri = Uri.parse('$_baseUrl/health');
-      final response = await http.get(uri).timeout(const Duration(seconds: 5));
-      return response.statusCode == 200;
-    } catch (e) {
-      return false;
-    }
+  /// Clears conversation history (useful for starting a new session)
+  void clearHistory() {
+    _conversationHistory.clear();
   }
+
+  /// Returns the current conversation history length
+  int get historyLength => _conversationHistory.length;
 }
 
 /// Data class representing a chat response from the API.

@@ -132,7 +132,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF4A90E2).withOpacity(0.12),
+                              color: const Color(0xFF4A90E2).withValues(alpha: 0.12),
                               blurRadius: 8,
                               offset: const Offset(0, 4),
                             ),
@@ -205,8 +205,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     boxShadow: [
                       BoxShadow(
                         color: isDark
-                            ? Colors.black.withOpacity(0.6)
-                            : Colors.black.withOpacity(0.04),
+                            ? Colors.black.withValues(alpha: 0.6)
+                            : Colors.black.withValues(alpha: 0.04),
                         blurRadius: 12,
                         offset: const Offset(0, 6),
                       ),
@@ -355,15 +355,15 @@ class _DashboardPageState extends State<DashboardPage> {
     final isDark = theme.brightness == Brightness.dark;
     final cardColor = isDark ? const Color(0xFF0F1720) : theme.cardColor;
     final shadowColor = isDark
-        ? Colors.black.withOpacity(0.45)
-        : Colors.black.withOpacity(0.03);
+        ? Colors.black.withValues(alpha: 0.45)
+        : Colors.black.withValues(alpha: 0.03);
     final titleColor = isDark
         ? Colors.white70
         : (theme.textTheme.bodySmall?.color ?? Colors.grey[700]);
     final valueColor = isDark
         ? Colors.white
         : (theme.textTheme.bodyLarge?.color ?? Colors.black87);
-    final iconBg = isDark ? color.withOpacity(0.22) : color.withOpacity(0.12);
+    final iconBg = isDark ? color.withValues(alpha: 0.22) : color.withValues(alpha: 0.12);
 
     return Container(
       width: isSmall ? width : 160,
@@ -426,8 +426,8 @@ class _SuggestionBox extends StatelessWidget {
     final theme = Theme.of(context);
     final cardColor = isDark ? const Color(0xFF0F1720) : Colors.white;
     final shadowColor = isDark
-        ? Colors.black.withOpacity(0.6)
-        : Colors.black.withOpacity(0.05);
+        ? Colors.black.withValues(alpha: 0.6)
+        : Colors.black.withValues(alpha: 0.05);
 
     return Material(
       color: Colors.transparent,
@@ -449,7 +449,7 @@ class _SuggestionBox extends StatelessWidget {
               ),
             ],
             border: Border.all(
-              color: theme.colorScheme.primary.withOpacity(0.18),
+              color: theme.colorScheme.primary.withValues(alpha: 0.18),
               width: 1.5,
             ),
           ),
@@ -458,7 +458,7 @@ class _SuggestionBox extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.12),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -481,8 +481,8 @@ class _SuggestionBox extends StatelessWidget {
                     Text(
                       'Real-time tips and quick activities to feel better now.',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.textTheme.bodySmall?.color?.withOpacity(
-                          0.8,
+                        color: theme.textTheme.bodySmall?.color?.withValues(
+                          alpha: 0.8,
                         ),
                       ),
                     ),
@@ -509,8 +509,8 @@ class _MoodStatusCard extends StatelessWidget {
     final theme = Theme.of(context);
     final cardColor = isDark ? const Color(0xFF0F1720) : Colors.white;
     final shadowColor = isDark
-        ? Colors.black.withOpacity(0.6)
-        : Colors.black.withOpacity(0.05);
+        ? Colors.black.withValues(alpha: 0.6)
+        : Colors.black.withValues(alpha: 0.05);
 
     return Material(
       color: Colors.transparent,
@@ -532,7 +532,7 @@ class _MoodStatusCard extends StatelessWidget {
               ),
             ],
             border: Border.all(
-              color: Colors.purple.withOpacity(0.3),
+              color: Colors.purple.withValues(alpha: 0.3),
               width: 1.5,
             ),
           ),
@@ -565,8 +565,8 @@ class _MoodStatusCard extends StatelessWidget {
                     Text(
                       'Log daily mood, stress & sleep to see your patterns.',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.textTheme.bodySmall?.color?.withOpacity(
-                          0.8,
+                        color: theme.textTheme.bodySmall?.color?.withValues(
+                          alpha: 0.8,
                         ),
                       ),
                     ),

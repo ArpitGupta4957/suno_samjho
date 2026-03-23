@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:suno_samjho/services/tts_service.dart';
 import 'package:suno_samjho/services/speech_service.dart';
 import 'package:suno_samjho/services/chat_service.dart';
+import 'package:suno_samjho/config/samjho_system_prompt.dart';
 import 'package:suno_samjho/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -91,6 +92,34 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
+  void _showCrisisDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('We care about you 💙'),
+        content: SingleChildScrollView(
+          child: Text(
+            SamjhoSystemPrompt.crisisResources,
+            style: const TextStyle(fontSize: 13, height: 1.6),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('I\'m okay'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _showSnackBar('You\'re not alone. Please reach out today. ❤️');
+            },
+            child: const Text('Thank you'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _ttsService.stop();
@@ -132,7 +161,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     _scrollToBottom();
 
     try {
-      // Call the FastAPI backend
+      // Call Gemini API via ChatService
       final response = await _chatService.sendMessage(message: text);
 
       // Update the bot message with actual response
@@ -141,7 +170,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
         setState(() {
           _messages[botIndex]['text'] = response.message;
           _messages[botIndex]['isLoading'] = false;
+          _messages[botIndex]['isCrisis'] = response.crisisFlag;
         });
+      }
+
+      // Show crisis resources if crisis keywords detected
+      if (response.crisisFlag) {
+        _showCrisisDialog();
       }
     } catch (e) {
       // Handle error - show error message in the chat
@@ -149,13 +184,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
       if (botIndex != -1) {
         setState(() {
           _messages[botIndex]['text'] =
-              'Sorry, I couldn\'t get a response. Please try again.';
+              'Sorry, I couldn\'t connect right now. Please try again or reach out to someone you trust.';
           _messages[botIndex]['isLoading'] = false;
           _messages[botIndex]['isError'] = true;
         });
       }
       // Show snackbar with error
-      _showSnackBar('Failed to get response: ${e.toString()}');
+      _showSnackBar('Connection issue: ${e.toString()}');
     } finally {
       setState(() => _isLoading = false);
       _scrollToBottom();
@@ -168,7 +203,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
   }
 
   void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent + 100,
@@ -182,7 +217,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -289,7 +323,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
       padding: const EdgeInsets.only(right: 8.0),
       child: CircleAvatar(
         radius: 16,
-        backgroundColor: theme.colorScheme.primary.withOpacity(0.15),
+        backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
         child: Icon(
           Icons.smart_toy,
           color: theme.colorScheme.primary,
@@ -339,7 +373,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.04),
+                color: Colors.black.withValues(alpha: 0.04),
                 blurRadius: 6,
                 offset: const Offset(0, 2),
               ),
@@ -473,7 +507,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
+                    color: Colors.black.withValues(alpha: 0.03),
                     blurRadius: 6,
                     offset: const Offset(0, 2),
                   ),
@@ -525,7 +559,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: _isListening
-                    ? Colors.red.withOpacity(0.15)
+                    ? Colors.red.withValues(alpha: 0.15)
                     : Colors.transparent,
                 shape: BoxShape.circle,
               ),

@@ -61,10 +61,13 @@ class SpeechService {
       },
       listenFor: const Duration(seconds: 60),  // Longer listening window
       pauseFor: const Duration(seconds: 5),    // Wait longer before stopping
-      partialResults: true,
-      listenMode: ListenMode.dictation,        // Best for continuous speech
+      listenOptions: SpeechListenOptions(
+        partialResults: true,
+        listenMode: ListenMode.dictation,       // Best for continuous speech
+        cancelOnError: false,                    // Don't stop on transient errors
+        autoPunctuation: true,
+      ),
       localeId: localeId,                       // Use specified locale
-      cancelOnError: false,                     // Don't stop on transient errors
       onSoundLevelChange: null,                 // Reduce processing overhead
     );
   }

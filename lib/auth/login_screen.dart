@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../services/auth_service.dart';
 import '../utils/input_validator.dart';
 import '../config/theme.dart';
+import '../home/main_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -132,23 +132,14 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    try {
-      if (_showSignUp) {
-        await AuthService.instance.signUp(email: email, password: password);
-      } else {
-        await AuthService.instance.signIn(email: email, password: password);
-      }
-      if (!mounted) return;
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).popUntil((route) => route.isFirst);
-      }
-    } catch (e) {
-      print('Login error caught: $e');
-      final message = e.toString().replaceAll('Exception: ', '');
-      setState(() => _error = message);
-    } finally {
-      if (mounted) setState(() => _loading = false);
-    }
+    // TODO: Re-enable Supabase auth when backend is available
+    // Bypass auth — navigate straight to dashboard
+    if (!mounted) return;
+    final userName = email.split('@').first;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => DashboardPage(userName: userName)),
+    );
+    if (mounted) setState(() => _loading = false);
   }
 
   Future<void> _handleGoogleOAuth() async {
@@ -233,7 +224,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   true,
                   isSmallScreen,
                   isDark: isDark,
-                  isPassword: true,
                   obscureText: _obscurePassword,
                   onToggleVisibility: () =>
                       setState(() => _obscurePassword = !_obscurePassword),
@@ -245,7 +235,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     true,
                     isSmallScreen,
                     isDark: isDark,
-                    isPassword: true,
                     obscureText: _obscureConfirmPassword,
                     onToggleVisibility: () => setState(
                       () => _obscureConfirmPassword = !_obscureConfirmPassword,
@@ -453,7 +442,7 @@ class _LoginScreenState extends State<LoginScreen> {
             filled: true,
             fillColor: isDark
                 ? Colors.grey[800]
-                : const Color(0xFFD9D9D9).withOpacity(0.15),
+                : const Color(0xFFD9D9D9).withValues(alpha: 0.15),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
@@ -484,7 +473,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       iconAsset,
                       width: 24,
                       height: 24,
-                      color: isDark ? Colors.white70 : null,
+                      colorFilter: isDark
+                          ? const ColorFilter.mode(
+                              Colors.white70,
+                              BlendMode.srcIn,
+                            )
+                          : null,
                     ),
                   )
                 : null,
@@ -544,7 +538,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: BoxDecoration(
           color: isDark
               ? Colors.grey[800]
-              : const Color(0xFFD9D9D9).withOpacity(0.2),
+              : const Color(0xFFD9D9D9).withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

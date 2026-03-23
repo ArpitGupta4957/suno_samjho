@@ -93,7 +93,7 @@ class _ThemeSettingCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -107,7 +107,7 @@ class _ThemeSettingCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.withOpacity(0.15),
+                  color: Colors.deepPurple.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.palette, color: Colors.deepPurple, size: 24),
@@ -210,7 +210,7 @@ class _ThemeOption extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             color: isSelected 
-                ? Colors.deepPurple.withOpacity(0.1) 
+                ? Colors.deepPurple.withValues(alpha: 0.1) 
                 : (isDark ? Colors.grey[800] : Colors.grey[50]),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -271,7 +271,7 @@ class _AboutCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

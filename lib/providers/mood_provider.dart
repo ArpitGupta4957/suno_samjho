@@ -161,8 +161,8 @@ class MoodProvider extends ChangeNotifier {
         _moodService.getMonthlyAverages(userId),
       ]);
 
-      _weeklyAverages = results[0] as Map<String, double>;
-      _monthlyAverages = results[1] as Map<String, double>;
+      _weeklyAverages = results[0];
+      _monthlyAverages = results[1];
     } catch (e) {
       // Keep existing averages on error
     }

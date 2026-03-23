@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../providers/mood_provider.dart';
 import '../config/theme.dart';
-import '../models/mood_entry.dart';
 
 class MoodPage extends StatefulWidget {
   const MoodPage({super.key});
@@ -339,7 +338,7 @@ class _MoodPageState extends State<MoodPage> {
         decoration: InputDecoration(
           hintText: 'How was your day? Any thoughts...',
           hintStyle: TextStyle(
-            color: isDark ? Colors.white50 : Colors.grey[500],
+            color: isDark ? Colors.white54 : Colors.grey[500],
           ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
@@ -433,7 +432,7 @@ class _MoodPageState extends State<MoodPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.04),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.04),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),
@@ -572,7 +571,7 @@ class _MoodPageState extends State<MoodPage> {
                         return Text(
                           value.toInt().toString(),
                           style: TextStyle(
-                            color: isDark ? Colors.white50 : Colors.grey[600],
+                            color: isDark ? Colors.white54 : Colors.grey[600],
                             fontSize: 10,
                           ),
                         );
@@ -583,13 +582,14 @@ class _MoodPageState extends State<MoodPage> {
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
-                        if (value.toInt() >= entries.length)
+                        if (value.toInt() >= entries.length) {
                           return const Text('');
+                        }
                         final date = entries[value.toInt()].date;
                         return Text(
                           '${date.day}/${date.month}',
                           style: TextStyle(
-                            color: isDark ? Colors.white50 : Colors.grey[600],
+                            color: isDark ? Colors.white54 : Colors.grey[600],
                             fontSize: 10,
                           ),
                         );
@@ -633,7 +633,7 @@ class _MoodPageState extends State<MoodPage> {
                     ),
                     belowBarData: BarAreaData(
                       show: true,
-                      color: Colors.blue.withOpacity(0.1),
+                      color: Colors.blue.withValues(alpha: 0.1),
                     ),
                   ),
                 ],
@@ -701,7 +701,7 @@ class _MoodPageState extends State<MoodPage> {
                         return Text(
                           '${value.toInt()}h',
                           style: TextStyle(
-                            color: isDark ? Colors.white50 : Colors.grey[600],
+                            color: isDark ? Colors.white54 : Colors.grey[600],
                             fontSize: 10,
                           ),
                         );
@@ -712,13 +712,14 @@ class _MoodPageState extends State<MoodPage> {
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
-                        if (value.toInt() >= entries.length)
+                        if (value.toInt() >= entries.length) {
                           return const Text('');
+                        }
                         final date = entries[value.toInt()].date;
                         return Text(
                           '${date.day}/${date.month}',
                           style: TextStyle(
-                            color: isDark ? Colors.white50 : Colors.grey[600],
+                            color: isDark ? Colors.white54 : Colors.grey[600],
                             fontSize: 10,
                           ),
                         );
@@ -787,7 +788,7 @@ class _MoodPageState extends State<MoodPage> {
             Text(
               message,
               style: TextStyle(
-                color: isDark ? Colors.white50 : Colors.grey[500],
+                color: isDark ? Colors.white54 : Colors.grey[500],
               ),
             ),
           ],

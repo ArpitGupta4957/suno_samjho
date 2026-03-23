@@ -121,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(16),
-                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(isDark ? 0.3 : 0.04), blurRadius: 12, offset: const Offset(0, 6))],
+                      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.04), blurRadius: 12, offset: const Offset(0, 6))],
                     ),
                     child: Row(
                       children: [
@@ -213,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     decoration: BoxDecoration(
                       color: isDark ? const Color(0xFF0F1720) : Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(isDark ? 0.3 : 0.03), blurRadius: 8, offset: const Offset(0, 4))],
+                      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.03), blurRadius: 8, offset: const Offset(0, 4))],
                     ),
                     child: Column(
                       children: [
@@ -271,7 +271,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       label: Text('Logout', style: TextStyle(fontSize: isSmall ? 16 : 18, fontWeight: FontWeight.w600, color: Colors.redAccent)),
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.redAccent.withOpacity(0.2))),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.redAccent.withValues(alpha: 0.2))),
                       ),
                     ),
                   ),
