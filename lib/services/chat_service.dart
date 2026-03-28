@@ -22,6 +22,14 @@ class ChatService {
   // Track conversation history for multi-turn context
   final List<Map<String, dynamic>> _conversationHistory = [];
 
+  /// Returns a masked version of the API key for safe logging
+  String _getMaskedApiKey() {
+    if (_apiKey.length <= 8) return '****';
+    return _apiKey.substring(0, 4) +
+        '*' * (_apiKey.length - 8) +
+        _apiKey.substring(_apiKey.length - 4);
+  }
+
   /// Sends a message to the Gemini API and returns the response.
   ///
   /// [message] - The user's input message
@@ -33,6 +41,13 @@ class ChatService {
     List<Map<String, String>>? context,
   }) async {
     try {
+      // Validate API key exists
+      if (_apiKey.isEmpty) {
+        throw Exception(
+          'API key not configured. Please add GEMINI_API_KEY to .env file.',
+        );
+      }
+
       // Add user message to conversation history
       _conversationHistory.add({
         'role': 'user',
@@ -41,7 +56,7 @@ class ChatService {
         ],
       });
 
-      // Build request to Gemini API
+      // Build request to Gemini API (NEVER expose key in logs)
       final uri = Uri.parse('$_baseUrl/$_model:generateContent?key=$_apiKey');
 
       // Prepare messages for the API
@@ -54,11 +69,7 @@ class ChatService {
           'parts': [
             {
               'text':
-                  'You are Samjho. ' +
-                  SamjhoSystemPrompt.mainPrompt
-                      .replaceAll('\n', ' ')
-                      .replaceAll('  ', ' ')
-                      .trim(),
+                  'You are Samjho. ${SamjhoSystemPrompt.mainPrompt.replaceAll('\n', ' ').replaceAll('  ', ' ').trim()}',
             },
           ],
         });
@@ -83,7 +94,7 @@ class ChatService {
         'generationConfig': {
           'temperature': 0.7,
           'topP': 0.95,
-          'maxOutputTokens': 250,
+          'maxOutputTokens': 2000,
         },
       };
 
@@ -137,34 +148,48 @@ class ChatService {
           crisisFlag: _checkCrisisKeywords(message),
         );
       } else if (response.statusCode == 401) {
+        // Don't expose the full error to users
         throw Exception(
-          'Authentication failed. Please check your Gemini API key.',
+          'Unable to authenticate with the service. Please try again later.',
         );
       } else if (response.statusCode == 429) {
         throw Exception(
           'Too many requests. Please wait a moment and try again.',
         );
       } else if (response.statusCode >= 500) {
-        throw Exception('Gemini API server error. Please try again later.');
-      } else {
-        final errorData = json.decode(response.body);
-        final error = errorData['error'] as Map<String, dynamic>?;
         throw Exception(
-          error?['message'] ?? 'Failed to get response from Gemini.',
+          'Service temporarily unavailable. Please try again later.',
+        );
+      } else {
+        throw Exception(
+          'Unexpected error. Please check your internet connection.',
         );
       }
     } on FormatException {
-      throw Exception('Invalid response format from Gemini API.');
+      throw Exception('Error processing response. Please try again.');
     } catch (e) {
-      // Re-throw if it's already our exception
+      // Re-throw if it's already our exception (sanitized)
       if (e.toString().contains('Exception:')) {
         rethrow;
       }
-      print('Error in chat service: $e');
+
+      // Log with masked API key (safe for debugging)
+      final safeError = _sanitizeErrorForLogging(e.toString());
+      print('[ChatService] Error: $safeError');
+
+      // Return user-safe error message (never expose API key or sensitive details)
       throw Exception(
-        'Unable to connect to the chat service. Please check your internet connection.',
+        'Unable to connect to chat service. Please check your internet connection.',
       );
     }
+  }
+
+  /// Removes API key and other sensitive info from error messages for logging
+  String _sanitizeErrorForLogging(String errorMessage) {
+    if (_apiKey.isEmpty) return errorMessage;
+
+    // Replace full API key with masked version
+    return errorMessage.replaceAll(_apiKey, _getMaskedApiKey());
   }
 
   /// Checks if the message contains crisis-related keywords

@@ -179,18 +179,20 @@ class _ChatbotPageState extends State<ChatbotPage> {
         _showCrisisDialog();
       }
     } catch (e) {
-      // Handle error - show error message in the chat
+      // Handle error - show user-safe error message (no API details exposed)
       final botIndex = _messages.indexWhere((m) => m['id'] == botMessageId);
       if (botIndex != -1) {
         setState(() {
           _messages[botIndex]['text'] =
-              'Sorry, I couldn\'t connect right now. Please try again or reach out to someone you trust.';
+              'I\'m having trouble connecting right now. Please try again in a moment. 💙';
           _messages[botIndex]['isLoading'] = false;
           _messages[botIndex]['isError'] = true;
         });
       }
-      // Show snackbar with error
-      _showSnackBar('Connection issue: ${e.toString()}');
+      // Show user-friendly message - never expose API errors or URLs
+      _showSnackBar(
+        'Connection issue. Please check your internet and try again.',
+      );
     } finally {
       setState(() => _isLoading = false);
       _scrollToBottom();
